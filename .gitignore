@@ -10,6 +10,8 @@
 /vendor/
 /bin/
 /composer.phar
+sgmc.sublime-project
+sgmc.sublime-workspace
 
 # Cache and logs (Symfony2)
 /app/cache/*
