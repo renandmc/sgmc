@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <meta charset="utf-8">
+        <title>{% block title %}SGMC - Sistema Gerenciador de Manutenção de Computadores{% endblock %}</title>
+        {% block icone %}
+            <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+        {% endblock %}
+        {% block css %}
+            <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/bootstrap.css') }}"/>
+            <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/bootstrap-theme.css')}}"/>
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block body %}
+        {% endblock %}
+        {% block js %}
+            <script type="text/javascript" src="{{ asset('jquery.js')}}"></script>
+            <script type="text/javascript" src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
+        {% endblock %}
     </body>
 </html>
