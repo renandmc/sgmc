@@ -12,6 +12,7 @@
 /composer.phar
 sgmc.sublime-project
 sgmc.sublime-workspace
+/.idea/
 
 # Cache and logs (Symfony2)
 /app/cache/*

@@ -16,4 +16,9 @@ class Equipamento
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $nome;
 }
