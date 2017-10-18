@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Departamentos</h1>
+    <a href="{{ path('admin_departamentos_new') }}" class="btn btn-default">Novo</a>
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for departamento in departamentos %}
+            <tr>
+                <td>{{ departamento.id }}</td>
+                <td>{{ departamento.nome }}</td>
+                <td>
+                    <a href="{{ path('admin_departamentos_show', { 'id': departamento.id }) }}" class="btn btn-default">Exibir</a>
+                    <a href="{{ path('admin_departamentos_edit', { 'id': departamento.id }) }}" class="btn btn-default">Editar</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

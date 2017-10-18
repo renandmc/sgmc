@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Departamento</h1>
+    <h2>{{ departamento.id }} - {{ departamento.nome }}</h2>
+    <hr>
+    <h2>Equipamentos</h2>
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descrição</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Número da máquina</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+{% endblock %}

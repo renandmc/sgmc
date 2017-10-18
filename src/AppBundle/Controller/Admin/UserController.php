@@ -32,11 +32,9 @@ class UserController extends Controller
         $usuario = new User();
         $usuario->setName("Renan");
         $usuario->setPassword("12345");
-
         $em = $this->getDoctrine()->getManager();
         $em->persist($usuario);
         $em->flush();
-
         return new Response('Salvo usuario' . $usuario->getId());
     }
 }

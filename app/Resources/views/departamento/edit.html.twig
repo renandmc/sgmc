@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Editar departamento</h1>
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" class="btn btn-default" value="Salvar">
+    {{ form_end(edit_form) }}
+    <a href="{{ path('admin_departamentos_index') }}" class="btn btn-default">Voltar para lista</a>
+    {{ form_start(delete_form) }}
+        <input type="submit" class="btn btn-default" value="Excluir">
+    {{ form_end(delete_form) }}
+{% endblock %}

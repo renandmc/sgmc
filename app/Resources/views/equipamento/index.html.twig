@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Equipamentos</h1>
+    <a href="{{ path('admin_equipamento_new') }}" class="btn btn-default">Novo</a>
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descrição</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Número da máquina</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for equipamento in equipamentos %}
+                <tr>
+                    <td>{{ equipamento.id }}</td>
+                    <td>{{ equipamento.descricao }}</td>
+                    <td>{{ equipamento.marca }}</td>
+                    <td>{{ equipamento.modelo }}</td>
+                    <td>{{ equipamento.numMaquina }}</td>
+                    <td>
+                        <a href="{{ path('admin_equipamento_show', { 'id': equipamento.id }) }}" class="btn btn-default">Exibir</a>
+                        <a href="{{ path('admin_equipamento_edit', { 'id': equipamento.id }) }}" class="btn btn-default">Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

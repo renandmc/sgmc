@@ -2,7 +2,6 @@
 # https://symfony.com/doc/current/service_container.html
 parameters:
     #parameter_name: value
-
 services:
     #service_name:
     #    class: AppBundle\Directory\ClassName

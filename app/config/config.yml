@@ -2,12 +2,10 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
-
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-
 framework:
     #esi: ~
     translator: ~
@@ -30,12 +28,10 @@ framework:
         handler_id: ~
     fragments: ~
     http_method_override: true
-
 # Twig Configuration
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
-
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -52,12 +48,10 @@ doctrine:
         #   2. Uncomment database_path in parameters.yml.dist
         #   3. Uncomment next line:
         #path: '%database_path%'
-
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
-
 # Swiftmailer Configuration
 swiftmailer:
     transport: '%mailer_transport%'
@@ -65,10 +59,17 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
-
 # Assetic configuration
 assetic:
     debug: '%kernel.debug%'
     use_controller: '%kernel.debug%'
     filters:
         cssrewrite: ~
+# FOSUser configuration
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: AppBundle\Entity\Usuario
+    from_email:
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"
