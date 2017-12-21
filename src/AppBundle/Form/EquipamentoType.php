@@ -13,17 +13,15 @@ class EquipamentoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('descricao')->add('marca')->add('modelo')->add('numMaquina');
+        $builder->add('descricao')->add('marca')->add('modelo')->add('numMaquina')->add('departamento');
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Equipamento'
-        ));
+        $resolver->setDefaults(array('data_class' => 'AppBundle\Entity\Equipamento'));
     }
 
     /**
@@ -33,6 +31,5 @@ class EquipamentoType extends AbstractType
     {
         return 'appbundle_equipamento';
     }
-
 
 }

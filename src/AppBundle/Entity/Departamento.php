@@ -41,6 +41,7 @@ class Departamento
     public function setNome($nome)
     {
         $this->nome = $nome;
+
         return $this;
     }
 
@@ -49,35 +50,18 @@ class Departamento
         return $this->nome;
     }
 
-    /**
-     * Add equipamento
-     *
-     * @param \AppBundle\Entity\Equipamento $equipamento
-     *
-     * @return Departamento
-     */
-    public function addEquipamento(\AppBundle\Entity\Equipamento $equipamento)
+    public function addEquipamento(Equipamento $equipamento)
     {
         $this->equipamentos[] = $equipamento;
 
         return $this;
     }
 
-    /**
-     * Remove equipamento
-     *
-     * @param \AppBundle\Entity\Equipamento $equipamento
-     */
-    public function removeEquipamento(\AppBundle\Entity\Equipamento $equipamento)
+    public function removeEquipamento(Equipamento $equipamento)
     {
         $this->equipamentos->removeElement($equipamento);
     }
 
-    /**
-     * Get equipamentos
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
     public function getEquipamentos()
     {
         return $this->equipamentos;

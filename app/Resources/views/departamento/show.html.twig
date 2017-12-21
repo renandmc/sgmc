@@ -1,21 +1,32 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
     <h1>Departamento</h1>
-    <h2>{{ departamento.id }} - {{ departamento.nome }}</h2>
-    <hr>
-    <h2>Equipamentos</h2>
-    <table class="table table-responsive">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Descrição</th>
-                <th>Marca</th>
-                <th>Modelo</th>
-                <th>Número da máquina</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
+
+    <table>
         <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ departamento.id }}</td>
+            </tr>
+            <tr>
+                <th>Nome</th>
+                <td>{{ departamento.nome }}</td>
+            </tr>
         </tbody>
     </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_departamentos_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_departamentos_edit', { 'id': departamento.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+            <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
 {% endblock %}

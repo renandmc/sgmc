@@ -5,7 +5,7 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: pt_BR
 framework:
     #esi: ~
     translator: ~
@@ -28,9 +28,12 @@ framework:
         handler_id: ~
     fragments: ~
     http_method_override: true
+    assets: ~
 # Twig Configuration
 twig:
     debug: '%kernel.debug%'
+    form_themes:
+        - "bootstrap_3_layout.html.twig"
     strict_variables: '%kernel.debug%'
 # Doctrine Configuration
 doctrine:
@@ -59,17 +62,3 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
-# Assetic configuration
-assetic:
-    debug: '%kernel.debug%'
-    use_controller: '%kernel.debug%'
-    filters:
-        cssrewrite: ~
-# FOSUser configuration
-fos_user:
-    db_driver: orm
-    firewall_name: main
-    user_class: AppBundle\Entity\Usuario
-    from_email:
-        address: "%mailer_user%"
-        sender_name: "%mailer_user%"

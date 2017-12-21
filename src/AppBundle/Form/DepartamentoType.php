@@ -15,15 +15,13 @@ class DepartamentoType extends AbstractType
     {
         $builder->add('nome');
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Departamento'
-        ));
+        $resolver->setDefaults(array('data_class' => 'AppBundle\Entity\Departamento'));
     }
 
     /**
@@ -33,6 +31,5 @@ class DepartamentoType extends AbstractType
     {
         return 'appbundle_departamento';
     }
-
 
 }
