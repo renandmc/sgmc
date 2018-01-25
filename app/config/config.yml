@@ -55,6 +55,13 @@ doctrine:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+# Doctrine Migrations
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/DoctrineMigrations"
+    namespace: AppBundle\Migrations
+    table_name: migration_versions
+    name: SGMC Migrations
+    organize_migrations: "BY_YEAR_AND_MONTH" # Version >=1.2 Possible values are: "BY_YEAR", "BY_YEAR_AND_MONTH", false
 # Swiftmailer Configuration
 swiftmailer:
     transport: '%mailer_transport%'
@@ -62,3 +69,11 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+# FOSUserBundle configuration
+fos_user:
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    firewall_name: main
+    user_class: AppBundle\Entity\Usuario
+    from_email:
+        address: "teste@abc.com"
+        sender_name: "SGMC - ETEC"

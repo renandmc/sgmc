@@ -15,6 +15,7 @@
         <label for="senha" class="sr-only">Senha</label>
         <input type="password" id="senha" name="_password" class="form-control" placeholder="Senha" required>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <input type="hidden" name="_target_path" value="{{ path('admin_home') }}">
         <button type="submit" class="btn btn-lg btn-primary btn-block"><i class="fa fa-sign-in"></i> Entrar</button>
     </form>
 {% endblock %}

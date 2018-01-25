@@ -1,28 +1,20 @@
 security:
     encoders:
-        AppBundle\Entity\Usuario:
-            algorithm: bcrypt
+        AppBundle\Entity\Usuario: bcrypt
     providers:
-        in_memory:
-            memory: ~
-        database_users:
-            entity:
-                class: AppBundle:Usuario,
-                property: username
+        fos_userbundle:
+            id: fos_user.user_provider.username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: ~
-            pattern: ^/admin
+            logout: ~
             form_login:
                 csrf_token_generator: security.csrf.token_manager
-                check_path: login
-                login_path: login
-            logout:
-                path: logout
-                target: home
+            remember_me:
+                secret: '%secret%'
     access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/admin, roles: ROLE_USER }
