@@ -1,4 +1,8 @@
 {% extends 'base.html.twig' %}
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="http://getbootstrap.com.br/examples/signin/signin.css">
+{% endblock %}
 {% block content %}
     {% block fos_user_content %}{% endblock %}
 {% endblock %}

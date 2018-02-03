@@ -14,9 +14,7 @@
         <tbody>
         {% for departamento in departamentos %}
             <tr>
-                <td>
-                    <a href="{{ path('admin_departamentos_show', { 'id': departamento.id }) }}">{{ departamento.id }}</a>
-                </td>
+                <td><a href="{{ path('admin_departamentos_show', { 'id': departamento.id }) }}">{{ departamento.id }}</a></td>
                 <td>{{ departamento.nome }}</td>
                 <td>
                     <ul>
