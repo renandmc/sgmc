@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,6 +17,11 @@ class Equipamento
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\Column(name="num_maquina", type="integer")
+     */
+    private $numero;
 
     /**
      * @ORM\Column(name="tipo_equipamento", type="string", length=100)
@@ -38,37 +44,51 @@ class Equipamento
     private $descricao;
 
     /**
-     * @ORM\Column(name="num_maquina", type="integer")
-     */
-    private $numMaquina;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Departamento", inversedBy="equipamentos")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Departamento", inversedBy="equipamentos")
      * @ORM\JoinColumn(name="departamento_id", referencedColumnName="id")
      */
     private $departamento;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ordem", mappedBy="equipamento")
+     */
+    private $ordens;
+
+    public function __construct()
+    {
+        $this->ordens = new ArrayCollection();
+    }
 
     public function getId()
     {
         return $this->id;
     }
 
-    public function setDescricao($descricao)
+    public function setId($id)
     {
-        $this->descricao = $descricao;
-
+        $this->id = $id;
         return $this;
     }
 
-    public function getDescricao()
+    public function getNumero()
     {
-        return $this->descricao;
+        return $this->numero;
     }
 
-    public function setMarca($marca)
+    public function setNumero($numero)
     {
-        $this->marca = $marca;
+        $this->numero = $numero;
+        return $this;
+    }
 
+    public function getTipoEquipamento()
+    {
+        return $this->tipoEquipamento;
+    }
+
+    public function setTipoEquipamento($tipoEquipamento)
+    {
+        $this->tipoEquipamento = $tipoEquipamento;
         return $this;
     }
 
@@ -77,10 +97,9 @@ class Equipamento
         return $this->marca;
     }
 
-    public function setModelo($modelo)
+    public function setMarca($marca)
     {
-        $this->modelo = $modelo;
-
+        $this->marca = $marca;
         return $this;
     }
 
@@ -89,22 +108,20 @@ class Equipamento
         return $this->modelo;
     }
 
-    public function setNumMaquina($numMaquina)
+    public function setModelo($modelo)
     {
-        $this->numMaquina = $numMaquina;
-
+        $this->modelo = $modelo;
         return $this;
     }
 
-    public function getNumMaquina()
+    public function getDescricao()
     {
-        return $this->numMaquina;
+        return $this->descricao;
     }
 
-    public function setDepartamento(Departamento $departamento = null)
+    public function setDescricao($descricao)
     {
-        $this->departamento = $departamento;
-
+        $this->descricao = $descricao;
         return $this;
     }
 
@@ -112,4 +129,27 @@ class Equipamento
     {
         return $this->departamento;
     }
+
+    public function setDepartamento(Departamento $departamento = null)
+    {
+        $this->departamento = $departamento;
+        return $this;
+    }
+
+    public function getOrdens()
+    {
+        return $this->ordens;
+    }
+
+    public function addOrdem(Ordem $ordem = null)
+    {
+        $this->ordens[] = $ordem;
+        return $this;
+    }
+
+    public function removeOrdem(Ordem $ordem)
+    {
+        $this->ordens->removeElement($ordem);
+    }
+
 }

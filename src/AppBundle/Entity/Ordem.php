@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="ordens")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\OrdemRepository")
+ * @ORM\Entity()
  */
 class Ordem
 {
@@ -27,16 +27,15 @@ class Ordem
      */
     private $descricao;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Equipamento", inversedBy="ordens")
+     * @ORM\JoinColumn(name="equipamento_id", referencedColumnName="id")
+     */
+    private $equipamento;
+
     public function getId()
     {
         return $this->id;
-    }
-
-    public function setData($data)
-    {
-        $this->data = $data;
-
-        return $this;
     }
 
     public function getData()
@@ -44,15 +43,31 @@ class Ordem
         return $this->data;
     }
 
-    public function setDescricao($descricao)
+    public function setData($data)
     {
-        $this->descricao = $descricao;
-
+        $this->data = $data;
         return $this;
     }
 
     public function getDescricao()
     {
         return $this->descricao;
+    }
+
+    public function setDescricao($descricao)
+    {
+        $this->descricao = $descricao;
+        return $this;
+    }
+
+    public function getEquipamento()
+    {
+        return $this->equipamento;
+    }
+
+    public function setEquipamento(Equipamento $equipamento = null)
+    {
+        $this->equipamento = $equipamento;
+        return $this;
     }
 }
