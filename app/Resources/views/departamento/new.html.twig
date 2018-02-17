@@ -1,13 +1,10 @@
-{% extends 'base.html.twig' %}
-
-{% block body %}
+{% extends 'admin/index.html.twig' %}
+{% block main %}
     <h1>Departamento creation</h1>
-
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <input type="submit" value="Create" />
     {{ form_end(form) }}
-
     <ul>
         <li>
             <a href="{{ path('admin_departamentos_index') }}">Back to the list</a>

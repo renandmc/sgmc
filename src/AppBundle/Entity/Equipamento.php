@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Departamento;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,19 +18,24 @@ class Equipamento
     private $id;
 
     /**
-     * @ORM\Column(name="descricao", type="string", length=255)
+     * @ORM\Column(name="tipo_equipamento", type="string", length=100)
      */
-    private $descricao;
+    private $tipoEquipamento;
 
     /**
-     * @ORM\Column(name="marca", type="string", length=255)
+     * @ORM\Column(name="marca", type="string", length=100)
      */
     private $marca;
 
     /**
-     * @ORM\Column(name="modelo", type="string", length=255)
+     * @ORM\Column(name="modelo", type="string", length=100)
      */
     private $modelo;
+
+    /**
+     * @ORM\Column(name="descricao", type="string", length=200)
+     */
+    private $descricao;
 
     /**
      * @ORM\Column(name="num_maquina", type="integer")

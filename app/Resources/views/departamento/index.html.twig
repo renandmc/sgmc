@@ -1,14 +1,14 @@
-{% extends 'base.html.twig' %}
-
-{% block body %}
-    <h1>Departamentos list</h1>
-
-    <table>
+{% extends 'admin/index.html.twig' %}
+{% block main %}
+    <h1>Departamentos</h1>
+    <hr>
+    <a href="{{ path('admin_departamentos_new') }}" class="btn btn-primary">Novo</a>
+    <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>ID</th>
                 <th>Nome</th>
-                <th>Actions</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -17,23 +17,11 @@
                 <td><a href="{{ path('admin_departamentos_show', { 'id': departamento.id }) }}">{{ departamento.id }}</a></td>
                 <td>{{ departamento.nome }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_departamentos_show', { 'id': departamento.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_departamentos_edit', { 'id': departamento.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('admin_departamentos_show', { 'id': departamento.id }) }}" class="btn btn-default">show</a>
+                    <a href="{{ path('admin_departamentos_edit', { 'id': departamento.id }) }}" class="btn btn-default">edit</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_departamentos_new') }}">Create a new departamento</a>
-        </li>
-    </ul>
 {% endblock %}

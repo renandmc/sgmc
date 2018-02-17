@@ -9,8 +9,13 @@
             <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
         {% endblock %}
         {% block css %}
+            <!-- links locais -->
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/sticky-footer-navbar.css') }}">
+            <!-- links remotos
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
             <link rel="stylesheet" href="https://getbootstrap.com/docs/3.3/examples/sticky-footer-navbar/sticky-footer-navbar.css">
+            -->
         {% endblock %}
     </head>
     <body>
@@ -71,8 +76,13 @@
                 </footer>
             {% endblock %}
             {% block js %}
+                <!-- links locais -->
+                <script src="{{ asset('js/jquery.min.js') }}"></script>
+                <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+                <!-- links remotos
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+                -->
                 <script src="https://use.fontawesome.com/f888f2bf0e.js"></script>
             {% endblock %}
         {% endblock %}

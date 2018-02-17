@@ -1,8 +1,6 @@
-{% extends 'base.html.twig' %}
-
-{% block body %}
+{% extends 'admin/index.html.twig' %}
+{% block main %}
     <h1>Departamento</h1>
-
     <table>
         <tbody>
             <tr>
@@ -15,7 +13,6 @@
             </tr>
         </tbody>
     </table>
-
     <ul>
         <li>
             <a href="{{ path('admin_departamentos_index') }}">Back to the list</a>

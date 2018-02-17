@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block css %}
     {{ parent() }}
-    <link rel="stylesheet" href="http://getbootstrap.com.br/examples/signin/signin.css">
+    <!-- link local -->
+    <link rel="stylesheet" href="{{ asset('css/signin.css') }}">
+    <!-- link remoto
+    <link rel="stylesheet" href="http://getbootstrap.com/docs/3.3/examples/signin/signin.css">
+    -->
 {% endblock %}
 {% block content %}
     {% block fos_user_content %}{% endblock %}
