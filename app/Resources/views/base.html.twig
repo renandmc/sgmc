@@ -12,7 +12,7 @@
             <!-- links locais -->
             <link rel="stylesheet" href="{{ asset('css/Backup/bootstrap.css') }}">
             <link rel="stylesheet" href="{{ asset('css/sticky-footer-navbar.css') }}">
-            <!--<link rel="stylesheet" href="{{ asset('css/estilo.css') }}">-->
+            <link rel="stylesheet" href="{{ asset('css/estilo.css') }}">-->
             <!-- links remotos
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
             <link rel="stylesheet" href="https://getbootstrap.com/docs/3.3/examples/sticky-footer-navbar/sticky-footer-navbar.css">
@@ -23,6 +23,7 @@
         {% block body %}
             {% block header %}
                 <nav class="navbar navbar-default navbar-fixed-top">
+                    <a class="navbar-brand"  href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" class="logo"></a>
                     <div class="container">
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
@@ -31,7 +32,6 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <!--<a class="navbar-brand"  href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" class="logo"></a>-->
                         </div>
                         <div class="collapse navbar-collapse" id="navbar">
                             <ul class="nav navbar-nav">
@@ -45,7 +45,7 @@
                                 {% endif %}
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <!--<li><a href="https://www.cps.sp.gov.br/"><img src="{{ asset('img/cps.png') }}"></a></li>-->
+                                <a href="https://www.cps.sp.gov.br/"><img src="{{ asset('img/cps.png') }}"></a></li>
                                 {% if app.user %}
                                     <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i> Sair</a></li>
                                 {% else %}
