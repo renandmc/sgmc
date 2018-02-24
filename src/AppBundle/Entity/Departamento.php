@@ -38,16 +38,20 @@ class Departamento
         return $this->id;
     }
 
-    public function setNome($nome)
-    {
-        $this->nome = $nome;
-
-        return $this;
-    }
-
     public function getNome()
     {
         return $this->nome;
+    }
+
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+        return $this;
+    }
+
+    public function getEquipamentos()
+    {
+        return $this->equipamentos;
     }
 
     public function addEquipamento(Equipamento $equipamento)
@@ -60,10 +64,5 @@ class Departamento
     public function removeEquipamento(Equipamento $equipamento)
     {
         $this->equipamentos->removeElement($equipamento);
-    }
-
-    public function getEquipamentos()
-    {
-        return $this->equipamentos;
     }
 }

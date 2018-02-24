@@ -13,7 +13,12 @@ class EquipamentoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('descricao')->add('marca')->add('modelo')->add('numMaquina')->add('departamento');
+        $builder
+            ->add('numero', 'Symfony\Component\Form\Extension\Core\Type\IntegerType')
+            ->add('tipoEquipamento', 'Symfony\Component\Form\Extension\Core\Type\TextType')
+            ->add('marca', 'Symfony\Component\Form\Extension\Core\Type\TextType')
+            ->add('modelo', 'Symfony\Component\Form\Extension\Core\Type\TextType')
+            ->add('descricao', 'Symfony\Component\Form\Extension\Core\Type\TextareaType');
     }
 
     /**

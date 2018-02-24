@@ -1,0 +1,40 @@
+{% extends 'admin/index.html.twig' %}
+{% block main %}
+    <h1>Equipamentos</h1>
+    <a href="{{ path('admin_equipamentos_new') }}" class="btn btn-primary">Novo</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Numero</th>
+                <th>Tipo equipamento</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Descrição</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for equipamento in equipamentos %}
+            <tr>
+                <td><a href="{{ path('admin_equipamentos_show', { 'id': equipamento.id }) }}">{{ equipamento.id }}</a></td>
+                <td>{{ equipamento.numero }}</td>
+                <td>{{ equipamento.tipoEquipamento }}</td>
+                <td>{{ equipamento.marca }}</td>
+                <td>{{ equipamento.modelo }}</td>
+                <td>{{ equipamento.descricao }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_equipamentos_show', { 'id': equipamento.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_equipamentos_edit', { 'id': equipamento.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

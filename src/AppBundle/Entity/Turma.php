@@ -23,9 +23,10 @@ class Turma
     private $nome;
 
     /**
-     * @ORM\Column(name="curso", type="string")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Curso", inversedBy="turmas")
      */
     private $curso;
+
 
     public function getId()
     {
@@ -48,7 +49,7 @@ class Turma
         return $this->curso;
     }
 
-    public function setCurso($curso)
+    public function setCurso(Curso $curso = null)
     {
         $this->curso = $curso;
         return $this;

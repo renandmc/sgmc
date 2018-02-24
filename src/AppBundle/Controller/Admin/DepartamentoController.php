@@ -21,7 +21,7 @@ class DepartamentoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $departamentos = $em->getRepository('AppBundle:Departamento')->findAll();
-        return $this->render('departamento/index.html.twig', array(
+        return $this->render('admin/departamento/index.html.twig', array(
             'departamentos' => $departamentos,
         ));
     }
