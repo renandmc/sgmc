@@ -64,12 +64,6 @@ class Equipamento
         return $this->id;
     }
 
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
     public function getNumero()
     {
         return $this->numero;

@@ -1,0 +1,18 @@
+.navbar-brand {
+    height: 100px;
+    padding: 10px 10px;
+    font-size: 18px;
+}
+
+.navbar-brand > img{
+    height: 80px;
+}
+
+.logo-cps{
+    height: 80px;
+    padding: 10px 0px 0px 10px;
+}
+
+.footer{
+    color: #FFFFFF;
+}

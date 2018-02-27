@@ -5,31 +5,23 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}SGMC - Sistema Gerenciador de Manutenção de Computadores{% endblock %}</title>
-
-
-
-
         {% block icone %}
             <link rel="icon" type="image/x-icon" href="{{ asset('img/logo.png') }}"/>
         {% endblock %}
         {% block css %}
-            <!-- links locais -->
-            <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+            <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.css') }}">
+            <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap-theme.css') }}">
             <link rel="stylesheet" href="{{ asset('css/sticky-footer-navbar.css') }}">
-            <link rel="stylesheet" href="{{ asset('css/estilo.css') }}">-->
-            <!-- links remotos
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-            <link rel="stylesheet" href="https://getbootstrap.com/docs/3.3/examples/sticky-footer-navbar/sticky-footer-navbar.css">
-            -->
+            <link rel="stylesheet" href="{{ asset('css/ajustes.css') }}">
         {% endblock %}
     </head>
     <body>
         {% block body %}
-
-
             {% block header %}
-                <nav class="navbar navbar-default navbar-fixed-top">
-                    <div class="container-fluid">
+                <nav class="navbar navbar-inverse navbar-fixed-top">
+                    <div class="container">
+                        <a href="{{ path('home') }}" class="navbar-brand"><img src="{{ asset('img/logo.png') }}"></a>
+                        <a href="https://www.cps.sp.gov.br/" class="navbar-right"><img src="{{ asset('img/cps.png') }}" class="logo-cps"></a>
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
                                 <span class="sr-only">Abrir menu</span>
@@ -37,32 +29,26 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand"  href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" class="logo"></a>
                         </div>
                         <div class="collapse navbar-collapse" id="navbar">
                             <ul class="nav navbar-nav">
                                 <li><a href="{{ path('home') }}"><i class="fa fa-home"></i> Página inicial</a></li>
-                                <li><a href="#">Teste</a></li>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <li><a href="{{ path('home_admin') }}"><i class="fa fa-lock"></i> ADMIN</a></li>
-                                    <li><a href="#">Teste</a></li>
-                                    <li><a href="#">Teste</a></li>
-                                    <li><a href="#">Teste</a></li>
+                                {% if is_granted('ROLE_USER') %}
+                                    <li><a href="{{ path('admin_home') }}"><i class="fa fa-lock"></i> Admin</a></li>
                                 {% endif %}
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
+                                <li></li>
                                 {% if app.user %}
                                     <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i> Sair</a></li>
                                 {% else %}
                                     <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-sign-in"></i> Entrar</a></li>
                                 {% endif %}
-                                <a href="https://www.cps.sp.gov.br/"><img src="{{ asset('img/cps.png') }}"></a>
                             </ul>
                         </div>
                     </div>
                 </nav>
             {% endblock %}
-
             <div class="container">
                 {% block content %}
                     <div class="row">
@@ -76,7 +62,6 @@
                     </div>
                 {% endblock %}
             </div>
-
             {% block footer %}
                 <footer class="footer">
                     <div class="container">
@@ -86,13 +71,8 @@
                 </footer>
             {% endblock %}
             {% block js %}
-                <!-- links locais -->
                 <script src="{{ asset('js/jquery.min.js') }}"></script>
                 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-                <!-- links remotos
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-                -->
                 <script src="https://use.fontawesome.com/f888f2bf0e.js"></script>
             {% endblock %}
         {% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'admin/index.html.twig' %}
+{% block main %}
+    <h1>Cursos</h1>
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Descricao</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for curso in cursos %}
+            <tr>
+                <td><a href="{{ path('admin_cursos_show', { 'id': curso.id }) }}">{{ curso.id }}</a></td>
+                <td>{{ curso.nome }}</td>
+                <td>{{ curso.descricao }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_cursos_show', { 'id': curso.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_cursos_edit', { 'id': curso.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_cursos_new') }}">Create a new curso</a>
+        </li>
+    </ul>
+{% endblock %}
