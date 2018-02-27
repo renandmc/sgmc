@@ -21,7 +21,6 @@
                 <nav class="navbar navbar-inverse navbar-fixed-top">
                     <div class="container">
                         <a href="{{ path('home') }}" class="navbar-brand"><img src="{{ asset('img/logo.png') }}"></a>
-
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
                                 <span class="sr-only">Abrir menu</span>
@@ -65,14 +64,18 @@
             {% block footer %}
                 <footer class="footer">
                     <div class="container">
-                        <p>{{ 'now'|date('Y') }} - SGMC</p>
-                        <p>César / Lucas / Renan / Vinícius</p>
                         <div class="row">
-
-                        <a href="https://www.cps.sp.gov.br/" ><img src="{{ asset('img/cps.png') }}"></a>
+                            <div class="col-md-4">
+                                <p>{{ 'now'|date('Y') }} - SGMC</p>
+                                <p>César / Lucas / Renan / Vinícius</p>
+                            </div>
+                            <div class="col-md-2 col-md-offset-6">
+                                <a href="https://www.cps.sp.gov.br/" class="pull-right">
+                                    <img src="{{ asset('img/cps.png') }}" class="logo-cps">
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    </div>
-
                 </footer>
             {% endblock %}
             {% block js %}
