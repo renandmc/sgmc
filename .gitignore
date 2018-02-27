@@ -55,3 +55,4 @@ sgmc.sublime-workspace
 
 # Backup entities generated with doctrine:generate:entities command
 **/Entity/*~
+/.vscode/
