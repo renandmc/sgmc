@@ -1,27 +1,22 @@
 {% extends 'admin/index.html.twig' %}
 {% block main %}
     <h1>Departamentos</h1>
+    <a href="{{ path('admin_departamentos_novo') }}" class="btn btn-primary">Novo</a>
     <hr>
-    <a href="{{ path('admin_departamentos_new') }}" class="btn btn-primary">Novo</a>
     <table class="table table-responsive">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
+        <tr>
+            <th>Nome</th>
+            <th>Ações</th>
+        </tr>
         {% for departamento in departamentos %}
             <tr>
-                <td><a href="{{ path('admin_departamentos_show', { 'id': departamento.id }) }}">{{ departamento.id }}</a></td>
                 <td>{{ departamento.nome }}</td>
                 <td>
-                    <a href="{{ path('admin_departamentos_show', { 'id': departamento.id }) }}" class="btn btn-default">show</a>
-                    <a href="{{ path('admin_departamentos_edit', { 'id': departamento.id }) }}" class="btn btn-default">edit</a>
+                    <a href="{{ path('admin_departamentos_info', { 'id': departamento.id }) }}" class="btn btn-default">Info</a>
+                    <a href="{{ path('admin_departamentos_editar', { 'id': departamento.id }) }}" class="btn btn-warning">Editar</a>
+                    <a href="{{ path('admin_departamentos_excluir', { 'id': departamento.id }) }}" class="btn btn-danger">Excluir</a>
                 </td>
             </tr>
         {% endfor %}
-        </tbody>
     </table>
 {% endblock %}
