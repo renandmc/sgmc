@@ -1,0 +1,30 @@
+{% extends 'admin/index.html.twig' %}
+{% block main %}
+    <h1>
+        <a href="{{ path('admin_departamentos_index') }}" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span></a>
+        Info departamento
+    </h1>
+    <hr>
+    <h3>ID: {{ departamento.id }}</h3>
+    <h3>Nome: {{ departamento.nome }}</h3>
+    <a href="{{ path('admin_departamentos_editar', { 'id': departamento.id }) }}" class="btn btn-warning">Editar</a>
+    <a href="{{ path('admin_departamentos_excluir', { 'id': departamento.id }) }}" class="btn btn-danger">Excluir</a>
+    <hr>
+    <h2>Equipamentos</h2>
+    <table class="table table-responsive">
+        <tr>
+            <th>ID</th>
+            <th>Tipo equipamento</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+        </tr>
+        {% for equip in departamento.equipamentos %}
+            <tr>
+                <td>{{ equip.id }}</td>
+                <td>{{ equip.tipoEquipamento }}</td>
+                <td>{{ equip.marca }}</td>
+                <td>{{ equip.modelo }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

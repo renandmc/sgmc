@@ -1,0 +1,19 @@
+{% extends 'admin/index.html.twig' %}
+{% block main %}
+    <h1>
+        <a href="{{ path('admin_departamentos_index') }}" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span></a>
+        Excluir departamento
+    </h1>
+    <hr>
+    <h3>ID: {{ departamento.id }}</h3>
+    <h3>Nome: {{ departamento.nome }}</h3>
+    <h2>Deseja excluir o departamento?</h2>
+    <form action="{{ path('admin_departamentos_excluir', {'id': departamento.id}) }}" method="post">
+        <input type="submit" value="Sim" name="del" class="btn btn-danger">
+        <input type="submit" value="Não" name="del" class="btn btn-default">
+    </form>
+    <!--
+    <a href="{{ path('admin_departamentos_excluir', {'id': departamento.id, 'del': true}) }}" class="btn btn-danger">Sim</a>
+    <a href="{{ path('admin_departamentos_excluir', {'id': departamento.id, 'del': false}) }}" class="btn btn-default">Não</a>
+    -->
+{% endblock %}
