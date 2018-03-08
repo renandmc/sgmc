@@ -5,11 +5,13 @@
     <hr>
     <table class="table table-responsive">
         <tr>
+            <th>ID</th>
             <th>Nome</th>
             <th>Ações</th>
         </tr>
         {% for departamento in departamentos %}
             <tr>
+                <td>{{ departamento.id }}</td>
                 <td>{{ departamento.nome }}</td>
                 <td>
                     <a href="{{ path('admin_departamentos_info', { 'id': departamento.id }) }}" class="btn btn-default">Info</a>

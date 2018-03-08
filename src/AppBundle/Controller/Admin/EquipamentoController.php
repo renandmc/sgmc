@@ -21,16 +21,14 @@ class EquipamentoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $equipamentos = $em->getRepository('AppBundle:Equipamento')->findAll();
-        return $this->render('admin/equipamento/index.html.twig', array(
-            'equipamentos' => $equipamentos,
-        ));
+        return $this->render('admin/equipamento/index.html.twig', array('equipamentos' => $equipamentos));
     }
 
     /**
-     * @Route("/new", name="admin_equipamentos_new")
+     * @Route("/novo", name="admin_equipamentos_novo")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function novoAction(Request $request)
     {
         $equipamento = new Equipamento();
         $form = $this->createForm('AppBundle\Form\EquipamentoType', $equipamento);
@@ -39,75 +37,50 @@ class EquipamentoController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($equipamento);
             $em->flush();
-            return $this->redirectToRoute('admin_equipamentos_show', array('id' => $equipamento->getId()));
+            return $this->redirectToRoute('admin_equipamentos_info', array('id' => $equipamento->getId()));
         }
-        return $this->render('equipamento/new.html.twig', array(
-            'equipamento' => $equipamento,
-            'form' => $form->createView(),
-        ));
+        return $this->render('admin/equipamento/novo.html.twig', array('equipamento' => $equipamento, 'form' => $form->createView()));
     }
 
     /**
-     * @Route("/{id}", name="admin_equipamentos_show")
+     * @Route("/info/{id}", name="admin_equipamentos_info")
      * @Method("GET")
      */
-    public function showAction(Equipamento $equipamento)
+    public function infoAction(Equipamento $equipamento)
     {
-        $deleteForm = $this->createDeleteForm($equipamento);
-
-        return $this->render('equipamento/show.html.twig', array(
-            'equipamento' => $equipamento,
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->render('admin/equipamento/info.html.twig', array('equipamento' => $equipamento));
     }
 
     /**
-     * @Route("/{id}/edit", name="admin_equipamentos_edit")
+     * @Route("/editar/{id}", name="admin_equipamentos_editar")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Equipamento $equipamento)
+    public function editarAction(Request $request, Equipamento $equipamento)
     {
-        $deleteForm = $this->createDeleteForm($equipamento);
         $editForm = $this->createForm('AppBundle\Form\EquipamentoType', $equipamento);
         $editForm->handleRequest($request);
-
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('admin_equipamentos_edit', array('id' => $equipamento->getId()));
+            return $this->redirectToRoute('admin_equipamentos_editar', array('id' => $equipamento->getId()));
         }
-
-        return $this->render('equipamento/edit.html.twig', array(
-            'equipamento' => $equipamento,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->render('admin/equipamento/editar.html.twig', array('equipamento' => $equipamento, 'form' => $editForm->createView()));
     }
 
     /**
-     * @Route("/{id}", name="admin_equipamentos_delete")
-     * @Method("DELETE")
+     * @Route("/excluir/{id}", name="admin_equipamentos_excluir")
+     * @Method({"GET", "POST"})
      */
-    public function deleteAction(Request $request, Equipamento $equipamento)
+    public function excluirAction(Request $request, Equipamento $equipamento)
     {
-        $form = $this->createDeleteForm($equipamento);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($equipamento);
-            $em->flush();
+        if($request->getMethod() == 'POST'){
+            if($request->get('del') == 'Sim'){
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($equipamento);
+                $em->flush();
+            }
+            return $this->redirectToRoute('admin_equipamentos_index');
         }
-
-        return $this->redirectToRoute('admin_equipamentos_index');
+        return $this->render('admin/equipamento/excluir.html.twig', array('equipamento' => $equipamento));
     }
 
-    private function createDeleteForm(Equipamento $equipamento)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_equipamentos_delete', array('id' => $equipamento->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
-    }
 }

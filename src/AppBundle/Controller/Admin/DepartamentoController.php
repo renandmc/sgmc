@@ -21,7 +21,9 @@ class DepartamentoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $departamentos = $em->getRepository('AppBundle:Departamento')->findAll();
-        return $this->render('admin/departamento/index.html.twig', array('departamentos' => $departamentos));
+        return $this->render('admin/departamento/index.html.twig', array(
+            'departamentos' => $departamentos
+        ));
     }
 
     /**
@@ -50,10 +52,7 @@ class DepartamentoController extends Controller
             $em->flush();
             return $this->redirectToRoute('admin_departamentos_info', array('id' => $departamento->getId()));
         }
-        return $this->render('admin/departamento/novo.html.twig', array(
-            'departamento' => $departamento,
-            'form' => $form->createView()
-        ));
+        return $this->render('admin/departamento/novo.html.twig', array('departamento' => $departamento, 'form' => $form->createView()));
     }
 
     /**
@@ -70,7 +69,7 @@ class DepartamentoController extends Controller
         }
         return $this->render('admin/departamento/editar.html.twig', array(
             'departamento' => $departamento,
-            'edit_form' => $editForm->createView()
+            'form' => $editForm->createView()
         ));
     }
 
@@ -88,7 +87,7 @@ class DepartamentoController extends Controller
             }
             return $this->redirectToRoute('admin_departamentos_index');
         }
-        return $this->render('admin/departamento/excluir.html.html.twig', array(
+        return $this->render('admin/departamento/excluir.html.twig', array(
             'departamento' => $departamento
         ));
     }

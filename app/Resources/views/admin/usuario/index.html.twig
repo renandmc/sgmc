@@ -1,19 +1,16 @@
 {% extends 'admin/index.html.twig' %}
 {% block main %}
     <h1>Usuários</h1>
+    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-primary">Novo</a>
     <hr>
-    <a href="#" class="btn btn-primary">Novo</a>
-    <table class="table table-responsive">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Usuário</th>
-                <th>E-mail</th>
-                <th>Permissão</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Usuário</th>
+            <th>E-mail</th>
+            <th>Nível permissão</th>
+            <th>Opções</th>
+        </tr>
         {% for usuario in usuarios %}
             <tr>
                 <td>{{ usuario.id }}</td>
@@ -25,12 +22,10 @@
                     {% endfor %}
                 </td>
                 <td>
-                    <a href="#" class="btn btn-default">Editar</a>
-                    <a href="#" class="btn btn-default">Info</a>
-
+                    <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-warning">Editar</a>
+                    <a href="{{ path('fos_user_profile_show') }}" class="btn btn-default">Info</a>
                 </td>
             </tr>
         {% endfor %}
-        </tbody>
     </table>
 {% endblock %}
