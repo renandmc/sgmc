@@ -63,7 +63,8 @@
         "incenteev-parameters": {
             "file": "app/config/parameters.yml",
             "env-map": {
-                "database_url": "CLEARDB_DATABASE_URL"
+                "database_url": "JAWSDB_URL"
+                //banco anterior "database_url": "CLEARDB_DATABASE_URL"
             }
         },
         "branch-alias": null
