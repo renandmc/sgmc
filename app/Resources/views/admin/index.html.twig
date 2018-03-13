@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
+{% block containerclass %}container-fluid{% endblock %}
 {% block sidebar %}
     <div class="panel panel-default">
         <div class="panel-body">
             <ul class="nav nav-pills nav-stacked">
+                <li><a href="{{ path('admin_cursos_index') }}">Cursos</a></li>
                 <li><a href="{{ path('admin_departamentos_index') }}">Departamentos</a></li>
                 <li><a href="{{ path('admin_equipamentos_index') }}">Equipamentos</a></li>
                 <li><a href="{{ path('admin_usuarios_index') }}">Usuários</a></li>

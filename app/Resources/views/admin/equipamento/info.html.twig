@@ -1,0 +1,18 @@
+{% extends 'admin/index.html.twig' %}
+{% block main %}
+    <h1>
+        <a href="{{ path('admin_equipamentos_index') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+        </a>
+        Info equipamento
+    </h1>
+    <hr>
+    <h3>ID: {{ equipamento.id }}</h3>
+    <h3>Número: {{ equipamento.numero }}</h3>
+    <h3>Tipo equipamento: {{ equipamento.tipoEquipamento }}</h3>
+    <h3>Marca: {{ equipamento.marca }}</h3>
+    <h3>Modelo: {{ equipamento.modelo }}</h3>
+    <h3>Descrição: {{ equipamento.descricao }}</h3>
+    <a href="{{ path('admin_equipamentos_editar', { 'id': equipamento.id }) }}" class="btn btn-warning">Editar</a>
+    <a href="{{ path('admin_equipamentos_excluir', { 'id': equipamento.id }) }}" class="btn btn-danger">Excluir</a>
+{% endblock %}

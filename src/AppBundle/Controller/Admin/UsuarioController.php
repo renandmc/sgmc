@@ -2,10 +2,8 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Entity\Usuario;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/admin/usuarios")
@@ -19,9 +17,7 @@ class UsuarioController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $usuarios = $em->getRepository('AppBundle:Usuario')->findAll();
-        return $this->render('usuario/index.html.twig', array(
-            'usuarios' => $usuarios,
-        ));
+        return $this->render('admin/usuario/index.html.twig', array('usuarios' => $usuarios));
     }
 
 }

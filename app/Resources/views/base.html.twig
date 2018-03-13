@@ -30,30 +30,30 @@
                         </div>
                         <div class="collapse navbar-collapse" id="navbar">
                             <ul class="nav navbar-nav">
-                                <li><a href="{{ path('home') }}"><i class="fa fa-home"></i> Página inicial</a></li>
+                                <li><a href="{{ path('home') }}"><span class="glyphicon glyphicon-home"></span> Página inicial</a></li>
                                 {% if is_granted('ROLE_USER') %}
-                                    <li><a href="{{ path('admin_home') }}"><i class="fa fa-lock"></i> Admin</a></li>
+                                    <li><a href="{{ path('admin_home') }}"><span class="glyphicon glyphicon-lock"></span> Admin</a></li>
                                 {% endif %}
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li></li>
                                 {% if app.user %}
-                                    <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i> Sair</a></li>
+                                    <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
                                 {% else %}
-                                    <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-sign-in"></i> Entrar</a></li>
+                                    <li><a href="{{ path('fos_user_security_login') }}"><span class="glyphicon glyphicon-log-in"></span> Entrar</a></li>
                                 {% endif %}
                             </ul>
                         </div>
                     </div>
                 </nav>
             {% endblock %}
-            <div class="container">
+            <div class="{% block containerclass %}container{% endblock %}">
                 {% block content %}
                     <div class="row">
-                        <div id="sidebar" class="col-sm-3">
+                        <div id="sidebar" class="col-sm-2">
                             {% block sidebar %}{% endblock %}
                         </div>
-                        <div id="main" class="col-sm-9">
+                        <div id="main" class="col-sm-10">
                             {{ include('default/_flash_messages.html.twig') }}
                             {% block main %}{% endblock %}
                         </div>
@@ -80,7 +80,6 @@
             {% block js %}
                 <script src="{{ asset('js/jquery.min.js') }}"></script>
                 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-                <script src="https://use.fontawesome.com/f888f2bf0e.js"></script>
             {% endblock %}
         {% endblock %}
     </body>

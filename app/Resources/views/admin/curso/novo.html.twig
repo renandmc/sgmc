@@ -1,12 +1,11 @@
 {% extends 'admin/index.html.twig' %}
 {% block main %}
     <h1>
-        <a href="{{ path('admin_departamentos_index') }}" class="btn btn-default">
+        <a href="{{ path('admin_cursos_index') }}" class="btn btn-default">
             <span class="glyphicon glyphicon-arrow-left"></span>
         </a>
-        Novo departamento
+        Novo curso
     </h1>
-    <hr>
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <input type="submit" value="Salvar" class="btn btn-default">
