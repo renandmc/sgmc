@@ -1,0 +1,20 @@
+{% extends 'admin/index.html.twig' %}
+{% block main %}
+    <h1>
+        <a href="{{ path('admin_turmas_index') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+        </a>
+        Excluir turma
+    </h1>
+    <hr>
+    <h3>ID: {{ turma.id }}</h3>
+    <h3>Período: {{ turma.periodo }}</h3>
+    <h3>Turno: {{ turma.turno }}</h3>
+    <h3>Curso: {{ turma.curso }}</h3>
+    <hr>
+    <h2>Deseja excluir a turma?</h2>
+    <form action="{{ path('admin_turmas_excluir', { 'id': equipamento.id }) }}" method="post">
+        <input type="submit" value="Sim" name="del" class="btn btn-danger">
+        <input type="submit" value="Não" name="del" class="btn btn-default">
+    </form>
+{% endblock %}

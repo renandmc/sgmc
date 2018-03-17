@@ -1,7 +1,7 @@
 {% extends 'admin/index.html.twig' %}
 {% block main %}
     <h1>Usuários</h1>
-    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-primary">Novo</a>
+    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-sm btn-primary">Novo</a>
     <hr>
     <table class="table">
         <tr>
@@ -22,8 +22,8 @@
                     {% endfor %}
                 </td>
                 <td>
-                    <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-warning">Editar</a>
-                    <a href="{{ path('fos_user_profile_show') }}" class="btn btn-default">Info</a>
+                    <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{{ path('fos_user_profile_show') }}" class="btn btn-sm btn-default">Info</a>
                 </td>
             </tr>
         {% endfor %}

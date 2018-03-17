@@ -8,7 +8,9 @@
     </h1>
     <hr>
     <h3>ID: {{ equipamento.id }}</h3>
-    <h3>Nome: {{ equipamento.nome }}</h3>
+    <h3>Tipo equipamento: {{ equipamento.tipoEquipamento }}</h3>
+    <h3>Marca: {{ equipamento.marca }}</h3>
+    <h3>Modelo: {{ equipamento.modelo }}</h3>
     <hr>
     <h2>Deseja excluir o equipamento?</h2>
     <form action="{{ path('admin_equipamentos_excluir', {'id': equipamento.id}) }}" method="post">
