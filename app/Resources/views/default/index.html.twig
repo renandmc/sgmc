@@ -1,50 +1,29 @@
 {% extends 'base.html.twig' %}
 {% block content %}
-
-
-
     <div class="well">
         <h1>SGMC - Sistema Gerenciador de Manutenção de Computadores</h1>
-
-
-    </div>
-
-
-
-    <ul class="nav nav-pills nav-justified">
-
-        <li role="presentation"><a href="http://127.0.0.1:8000/register/" class="btn btn-default">
-                <!---Editar o link, colocar rota !--->
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                        Cadastrar-se
-            </a></li>
-        <li role="presentation"><a href="http://127.0.0.1:8000/register/" class="btn btn-default">
-                <!---Editar o link, colocar rota !--->
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        Excluir minha conta
-            </a></li>
-
-        <li role="presentation"><a href="http://127.0.0.1:8000/register/" class="btn btn-default">
-                <!---Editar o link, colocar rota !--->
+        <hr>
+        <ul class="nav nav-pills nav-justified">
+            <li>
+                <a href="{{ path('fos_user_registration_register') }}" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-user"></span>
+                    Cadastrar-se
+                </a>
+            </li>
+            <li>
+                <!-- TODO adicionar recuperar senha -->
+                <a href="{{ path('fos_user_change_password') }}" class="btn btn-default btn-lg">
                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                        Recuperar senha
-            </a></li>
-
-        <li role="presentation"><a href="http://127.0.0.1:8000/register/" class="btn btn-default">
-                <!---Editar o link, colocar rota !--->
+                    Alterar senha
+                </a>
+            </li>
+            <li>
+                <!-- TODO adicionar link -->
+                <a href="#" class="btn btn-default btn-lg">
                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                        Sobre
-            </a></li>
-    </ul>
-
-
-
-
-
-
-
-
-
-
-
+                    Sobre
+                </a>
+            </li>
+        </ul>
+    </div>
 {% endblock %}

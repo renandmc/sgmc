@@ -16,5 +16,5 @@ security:
             remember_me:
                 secret: '%secret%'
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         #- { path: ^/admin, roles: ROLE_USER }

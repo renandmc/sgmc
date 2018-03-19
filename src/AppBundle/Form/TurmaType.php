@@ -4,13 +4,11 @@ namespace AppBundle\Form;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EquipamentoType extends AbstractType
+class TurmaType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -18,15 +16,12 @@ class EquipamentoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('departamento',EntityType::class, array(
-                'class' => 'AppBundle:Departamento',
+            ->add('periodo',TextType::class)
+            ->add('turno',TextType::class)
+            ->add('curso',EntityType::class, array(
+                'class' => 'AppBundle:Curso',
                 'choice_label' => 'nome'
-            ))
-            ->add('numero', IntegerType::class)
-            ->add('tipoEquipamento', TextType::class)
-            ->add('marca', TextType::class)
-            ->add('modelo', TextType::class)
-            ->add('descricao', TextareaType::class);
+            ));
     }
 
     /**
@@ -34,7 +29,7 @@ class EquipamentoType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'AppBundle\Entity\Equipamento'));
+        $resolver->setDefaults(array('data_class' => 'AppBundle\Entity\Turma'));
     }
 
     /**
@@ -42,7 +37,7 @@ class EquipamentoType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_equipamento';
+        return 'appbundle_turma';
     }
 
 }

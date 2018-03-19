@@ -47,7 +47,8 @@ doctrine_migrations:
     namespace: AppBundle\Migrations
     table_name: migration_versions
     name: SGMC Migrations
-    organize_migrations: "BY_YEAR_AND_MONTH" # Version >=1.2 Possible values are: "BY_YEAR", "BY_YEAR_AND_MONTH", false
+    organize_migrations: "BY_YEAR_AND_MONTH"
+    # Version >=1.2 Possible values are: "BY_YEAR", "BY_YEAR_AND_MONTH", false
 # Swiftmailer Configuration
 swiftmailer:
     transport: '%mailer_transport%'
@@ -57,7 +58,7 @@ swiftmailer:
     spool: { type: memory }
 # FOSUserBundle configuration
 fos_user:
-    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    db_driver: orm
     firewall_name: main
     user_class: AppBundle\Entity\Usuario
     from_email:

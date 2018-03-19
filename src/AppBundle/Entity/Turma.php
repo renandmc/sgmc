@@ -18,9 +18,14 @@ class Turma
     private $id;
 
     /**
-     * @ORM\Column(name="nome", type="string")
+     * @ORM\Column(name="periodo", type="string")
      */
-    private $nome;
+    private $periodo;
+
+    /**
+     * @ORM\Column(name="turno", type="string")
+     */
+    private $turno;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Curso", inversedBy="turmas")
@@ -33,14 +38,25 @@ class Turma
         return $this->id;
     }
 
-    public function getNome()
+    public function getPeriodo()
     {
-        return $this->nome;
+        return $this->periodo;
     }
 
-    public function setNome($nome)
+    public function setPeriodo($periodo)
     {
-        $this->nome = $nome;
+        $this->periodo = $periodo;
+        return $this;
+    }
+
+    public function getTurno()
+    {
+        return $this->turno;
+    }
+
+    public function setTurno($turno)
+    {
+        $this->turno = $turno;
         return $this;
     }
 

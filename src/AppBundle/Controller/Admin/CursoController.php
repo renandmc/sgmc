@@ -47,7 +47,8 @@ class CursoController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($curso);
             $em->flush();
-            return $this->redirectToRoute('admin_cursos_info', array('id' => $curso->getId()));
+            $this->addFlash('success',"Curso criado");
+            return $this->redirectToRoute('admin_cursos_index');
         }
         return $this->render('admin/curso/novo.html.twig', array('curso' => $curso, 'form' => $form->createView()));
     }
@@ -62,7 +63,8 @@ class CursoController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('admin_cursos_editar', array('id' => $curso->getId()));
+            $this->addFlash('success','Curso editada');
+            return $this->redirectToRoute('admin_cursos_index');
         }
         return $this->render('admin/curso/editar.html.twig', array('curso' => $curso, 'form' => $editForm->createView()));
     }
@@ -78,6 +80,7 @@ class CursoController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->remove($curso);
                 $em->flush();
+                $this->addFlash('warning','Curso excluído');
             }
             return $this->redirectToRoute('admin_cursos_index');
         }

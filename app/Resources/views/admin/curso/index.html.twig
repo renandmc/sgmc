@@ -1,7 +1,7 @@
 {% extends 'admin/index.html.twig' %}
 {% block main %}
     <h1>Cursos</h1>
-    <a href="{{ path('admin_cursos_novo') }}" class="btn btn-primary">Novo</a>
+    <a href="{{ path('admin_cursos_novo') }}" class="btn btn-sm btn-primary">Novo</a>
     <hr>
     <table class="table table-responsive">
         <tr>
@@ -16,9 +16,9 @@
                 <td>{{ curso.nome }}</td>
                 <td>{{ curso.descricao }}</td>
                 <td>
-                    <a href="{{ path('admin_cursos_info', { 'id': curso.id }) }}" class="btn btn-default">Info</a>
-                    <a href="{{ path('admin_cursos_editar', { 'id': curso.id }) }}" class="btn btn-warning">Editar</a>
-                    <a href="{{ path('admin_cursos_excluir', { 'id': curso.id }) }}" class="btn btn-danger">Excluir</a>
+                    <a href="{{ path('admin_cursos_info', { 'id': curso.id }) }}" class="btn btn-sm btn-default">Info</a>
+                    <a href="{{ path('admin_cursos_editar', { 'id': curso.id }) }}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{{ path('admin_cursos_excluir', { 'id': curso.id }) }}" class="btn btn-sm btn-danger">Excluir</a>
                 </td>
             </tr>
         {% endfor %}
