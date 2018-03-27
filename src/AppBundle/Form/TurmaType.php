@@ -16,7 +16,7 @@ class TurmaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('periodo',TextType::class)
+            ->add('modulo',TextType::class)
             ->add('turno',TextType::class)
             ->add('curso',EntityType::class, array(
                 'class' => 'AppBundle:Curso',

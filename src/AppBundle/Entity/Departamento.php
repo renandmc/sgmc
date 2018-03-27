@@ -33,6 +33,11 @@ class Departamento
         $this->equipamentos = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return "$this->nome";
+    }
+
     public function getId()
     {
         return $this->id;

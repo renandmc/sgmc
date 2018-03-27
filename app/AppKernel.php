@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Craue\FormFlowBundle\CraueFormFlowBundle(),
             new AppBundle\AppBundle(),
         );
 

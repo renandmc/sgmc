@@ -18,5 +18,9 @@ class Usuario extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
+    public function __toString()
+    {
+        return "$this->username ($this->email)";
+    }
 }

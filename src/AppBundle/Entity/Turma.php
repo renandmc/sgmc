@@ -18,9 +18,14 @@ class Turma
     private $id;
 
     /**
-     * @ORM\Column(name="periodo", type="string")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Curso", inversedBy="turmas")
      */
-    private $periodo;
+    private $curso;
+
+    /**
+     * @ORM\Column(name="modulo", type="string")
+     */
+    private $modulo;
 
     /**
      * @ORM\Column(name="turno", type="string")
@@ -28,24 +33,34 @@ class Turma
     private $turno;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Curso", inversedBy="turmas")
+     * @ORM\Column(name="ano", type="datetime", nullable=true)
      */
-    private $curso;
-
+    private $ano;
 
     public function getId()
     {
         return $this->id;
     }
 
-    public function getPeriodo()
+    public function getCurso()
     {
-        return $this->periodo;
+        return $this->curso;
     }
 
-    public function setPeriodo($periodo)
+    public function setCurso(Curso $curso = null)
     {
-        $this->periodo = $periodo;
+        $this->curso = $curso;
+        return $this;
+    }
+
+    public function getModulo()
+    {
+        return $this->modulo;
+    }
+
+    public function setModulo($modulo)
+    {
+        $this->modulo = $modulo;
         return $this;
     }
 
@@ -60,14 +75,14 @@ class Turma
         return $this;
     }
 
-    public function getCurso()
+    public function getAno()
     {
-        return $this->curso;
+        return $this->ano;
     }
 
-    public function setCurso(Curso $curso = null)
+    public function setAno($ano)
     {
-        $this->curso = $curso;
+        $this->ano = $ano;
         return $this;
     }
 

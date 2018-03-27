@@ -54,9 +54,20 @@ class Equipamento
      */
     private $ordens;
 
+    /**
+     * @ORM\Column(name="status", type="string", length=50)
+     */
+    private $status;
+
     public function __construct()
     {
         $this->ordens = new ArrayCollection();
+        $this->status = "Em funcionamento";
+    }
+
+    public function __toString()
+    {
+        return $this->tipoEquipamento . ' ' . $this->modelo . ' ' . $this->marca;
     }
 
     public function getId()
@@ -144,6 +155,11 @@ class Equipamento
     public function removeOrdem(Ordem $ordem)
     {
         $this->ordens->removeElement($ordem);
+    }
+
+    public function getEquipamento()
+    {
+        return $this->tipoEquipamento . ' ' . $this->marca . ' ' . $this->modelo;
     }
 
 }

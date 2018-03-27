@@ -1,0 +1,10 @@
+{% extends 'admin/index.html.twig' %}
+{% block main %}
+    <h1>
+        <a href="{{ path('admin_equipamentos_index') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+        </a>
+        Editar ordem
+    </h1>
+    {{ include('_form.html.twig', { 'form': form }) }}
+{% endblock %}
