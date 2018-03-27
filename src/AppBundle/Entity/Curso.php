@@ -20,12 +20,12 @@ class Curso
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=150)
      */
     private $nome;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $descricao;
 
@@ -37,6 +37,11 @@ class Curso
     public function __construct()
     {
         $this->turmas = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->nome;
     }
 
     public function getId()

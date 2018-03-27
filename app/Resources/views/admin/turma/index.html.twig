@@ -6,7 +6,7 @@
     <table class="table table-responsive">
         <tr>
             <th>ID</th>
-            <th>Período</th>
+            <th>Módulo</th>
             <th>Turno</th>
             <th>Curso</th>
             <th>Opções</th>
@@ -14,7 +14,7 @@
         {% for turma in turmas %}
             <tr>
                 <td>{{ turma.id }}</td>
-                <td>{{ turma.periodo }}</td>
+                <td>{{ turma.modulo }}</td>
                 <td>{{ turma.turno }}</td>
                 <td>{{ turma.curso.nome }}</td>
                 <td>

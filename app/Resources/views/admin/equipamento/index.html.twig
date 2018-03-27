@@ -15,7 +15,7 @@
             <tr>
                 <td>{{ equipamento.id }}</td>
                 <td>{{ equipamento.numero }}</td>
-                <td>{{ equipamento.tipoEquipamento }} {{ equipamento.marca }} {{ equipamento.modelo }}</td>
+                <td>{{ equipamento }}</td>
                 <td>{{ equipamento.departamento.nome }}</td>
                 <td>
                     <a href="{{ path('admin_equipamentos_info', { 'id': equipamento.id }) }}" class="btn btn-sm btn-default">Info</a>

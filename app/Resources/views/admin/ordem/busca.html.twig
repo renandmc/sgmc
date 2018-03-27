@@ -1,0 +1,42 @@
+{% extends 'admin/index.html.twig' %}
+{% block main %}
+    <h1>
+        <a href="{{ path('admin_ordens_index') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+        </a>
+        Nova ordem de serviço
+    </h1>
+    <h2>Departamentos</h2>
+    <div role="tabpanel">
+        <ul class="nav nav-tabs" role="tablist">
+            {% for departamento in departamentos %}
+                <li role="presentation"><a href="#{{ departamento.id }}" aria-controls="{{ departamento.id }}" role="tab" data-toggle="tab">{{ departamento.nome }}</a></li>
+            {% endfor %}
+        </ul>
+        <div class="tab-content">
+            {% for departamento in departamentos %}
+                <div role="tabpanel" class="tab-pane" id="{{ departamento.id }}">
+                    <h2>Equipamentos</h2>
+                    <table class="table table-responsive">
+                        <tr>
+                            <th>ID</th>
+                            <th>Número</th>
+                            <th>Equipamento</th>
+                            <th>Opções</th>
+                        </tr>
+                        {% for equipamento in departamento.equipamentos %}
+                            <tr>
+                                <td>{{ equipamento.id }}</td>
+                                <td>{{ equipamento.numero }}</td>
+                                <td>{{ equipamento }}</td>
+                                <td>
+                                    <a href="{{ path('admin_ordens_novo', { 'id' : equipamento.id }) }}" class="btn btn-sm btn-default">Nova ordem</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -50,10 +50,10 @@
             <div class="{% block containerclass %}container{% endblock %}">
                 {% block content %}
                     <div class="row">
-                        <div id="sidebar" class="col-sm-2">
+                        <div id="sidebar" class="col-sm-3 col-md-2">
                             {% block sidebar %}{% endblock %}
                         </div>
-                        <div id="main" class="col-sm-10">
+                        <div id="main" class="col-sm-9 col-md-10">
                             {{ include('_flash_messages.html.twig') }}
                             {% block main %}{% endblock %}
                         </div>
