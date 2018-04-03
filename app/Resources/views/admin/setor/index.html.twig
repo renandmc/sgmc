@@ -1,0 +1,22 @@
+{% extends 'admin/index.html.twig' %}
+{% block main %}
+    <h1>Setores</h1>
+    <a href="{{ path('admin_setores_novo') }}" class="btn btn-sm btn-primary">Novo</a>
+    <hr>
+    <table class="table table-responsive">
+        <tr>
+            <th>Nome</th>
+            <th>Ações</th>
+        </tr>
+        {% for setor in setores %}
+            <tr>
+                <td>{{ setor.nome }}</td>
+                <td>
+                    <a href="{{ path('admin_setores_info', { 'id' : setor.id }) }}" class="btn btn-sm btn-default">Info</a>
+                    <a href="{{ path('admin_setores_editar', { 'id' : setor.id }) }}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{{ path('admin_setores_excluir', { 'id' : setor.id }) }}" class="btn btn-sm btn-danger">Excluir</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

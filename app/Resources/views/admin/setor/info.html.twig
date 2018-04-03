@@ -1,16 +1,16 @@
 {% extends 'admin/index.html.twig' %}
 {% block main %}
     <h1>
-        <a href="{{ path('admin_departamentos_index') }}" class="btn btn-default">
+        <a href="{{ path('admin_setores_index') }}" class="btn btn-default">
             <span class="glyphicon glyphicon-arrow-left"></span>
         </a>
-        Info departamento
+        Info setor
     </h1>
     <hr>
-    <h3>ID: {{ departamento.id }}</h3>
-    <h3>Nome: {{ departamento.nome }}</h3>
-    <a href="{{ path('admin_departamentos_editar', { 'id': departamento.id }) }}" class="btn btn-warning">Editar</a>
-    <a href="{{ path('admin_departamentos_excluir', { 'id': departamento.id }) }}" class="btn btn-danger">Excluir</a>
+    <h3>ID: {{ setor.id }}</h3>
+    <h3>Nome: {{ setor.nome }}</h3>
+    <a href="{{ path('admin_setores_editar', { 'id': setor.id }) }}" class="btn btn-warning">Editar</a>
+    <a href="{{ path('admin_setores_excluir', { 'id': setor.id }) }}" class="btn btn-danger">Excluir</a>
     <hr>
     <h2>Equipamentos</h2>
     <table class="table table-responsive">
@@ -20,7 +20,7 @@
             <th>Marca</th>
             <th>Modelo</th>
         </tr>
-        {% for equip in departamento.equipamentos %}
+        {% for equip in setor.equipamentos %}
             <tr>
                 <td>{{ equip.id }}</td>
                 <td>{{ equip.tipoEquipamento }}</td>

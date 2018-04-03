@@ -19,7 +19,11 @@ class OrdemController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $ordens = $em->getRepository('AppBundle:Ordem')->findAll();
+        if ($this->getUser()->getTipo() == 'Representante'){
+            $ordens = $em->getRepository('AppBundle:Ordem')->findBy(array('usuario' => $this->getUser()));
+        } else {
+            $ordens = $em->getRepository('AppBundle:Ordem')->findAll();
+        }
         return $this->render('admin/ordem/index.html.twig', array('ordens' => $ordens));
     }
 
@@ -37,8 +41,8 @@ class OrdemController extends Controller
     public function buscarEquipamentoAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $departamentos = $em->getRepository('AppBundle:Departamento')->findAll();
-        return $this->render('admin/ordem/busca.html.twig', array('departamentos' => $departamentos));
+        $setores = $em->getRepository('AppBundle:Setor')->findAll();
+        return $this->render('admin/ordem/busca.html.twig', array('setores' => $setores));
     }
 
     /**
