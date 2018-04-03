@@ -19,7 +19,7 @@ class EquipamentoType extends AbstractType
     {
         $builder
             ->add('departamento',EntityType::class, array(
-                'class' => 'AppBundle:Departamento',
+                'class' => 'Setor',
                 'choice_label' => 'nome'
             ))
             ->add('numero', IntegerType::class)

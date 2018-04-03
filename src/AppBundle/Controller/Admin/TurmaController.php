@@ -82,8 +82,6 @@ class TurmaController extends Controller
                 $em->remove($turma);
                 $em->flush();
                 $this->addFlash('warning','Turma excluída');
-            }else{
-                $this->addFlash('success','Nenhuma turma excluída');
             }
             return $this->redirectToRoute('admin_turmas_index');
         }

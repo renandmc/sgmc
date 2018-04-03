@@ -6,32 +6,32 @@
         </a>
         Nova ordem de serviço
     </h1>
-    <h2>Departamentos</h2>
+    <h2>Selecione o setor</h2>
     <div role="tabpanel">
         <ul class="nav nav-tabs" role="tablist">
-            {% for departamento in departamentos %}
-                <li role="presentation"><a href="#{{ departamento.id }}" aria-controls="{{ departamento.id }}" role="tab" data-toggle="tab">{{ departamento.nome }}</a></li>
+            {% for setor in setores %}
+                <li role="presentation">
+                    <a href="#{{ setor.id }}" aria-controls="{{ setor.id }}" role="tab" data-toggle="tab">
+                        {{ setor.nome }}
+                    </a>
+                </li>
             {% endfor %}
         </ul>
         <div class="tab-content">
-            {% for departamento in departamentos %}
-                <div role="tabpanel" class="tab-pane" id="{{ departamento.id }}">
-                    <h2>Equipamentos</h2>
+            {% for setor in setores %}
+                <div role="tabpanel" class="tab-pane" id="{{ setor.id }}">
+                    <h2>Setores</h2>
                     <table class="table table-responsive">
                         <tr>
-                            <th>ID</th>
                             <th>Número</th>
                             <th>Equipamento</th>
                             <th>Opções</th>
                         </tr>
-                        {% for equipamento in departamento.equipamentos %}
+                        {% for equipamento in setor.equipamentos %}
                             <tr>
-                                <td>{{ equipamento.id }}</td>
                                 <td>{{ equipamento.numero }}</td>
                                 <td>{{ equipamento }}</td>
-                                <td>
-                                    <a href="{{ path('admin_ordens_novo', { 'id' : equipamento.id }) }}" class="btn btn-sm btn-default">Nova ordem</a>
-                                </td>
+                                <td><a href="{{ path('admin_ordens_novo', { 'id' : equipamento.id }) }}" class="btn btn-sm btn-default">Nova ordem</a></td>
                             </tr>
                         {% endfor %}
                     </table>

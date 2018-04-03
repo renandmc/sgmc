@@ -5,7 +5,6 @@
     <hr>
     <table class="table table-responsive">
         <tr>
-            <th>ID</th>
             <th>Número</th>
             <th>Equipamento</th>
             <th>Departamento</th>
@@ -13,10 +12,9 @@
         </tr>
         {% for equipamento in equipamentos %}
             <tr>
-                <td>{{ equipamento.id }}</td>
                 <td>{{ equipamento.numero }}</td>
                 <td>{{ equipamento }}</td>
-                <td>{{ equipamento.departamento.nome }}</td>
+                <td>{{ equipamento.departamento }}</td>
                 <td>
                     <a href="{{ path('admin_equipamentos_info', { 'id': equipamento.id }) }}" class="btn btn-sm btn-default">Info</a>
                     <a href="{{ path('admin_equipamentos_editar', { 'id': equipamento.id }) }}" class="btn btn-sm btn-warning">Editar</a>

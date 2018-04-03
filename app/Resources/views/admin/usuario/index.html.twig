@@ -1,11 +1,10 @@
 {% extends 'admin/index.html.twig' %}
 {% block main %}
     <h1>Usuários</h1>
-    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-sm btn-primary">Novo</a>
+    <a href="{{ path('admin_usuarios_novo') }}" class="btn btn-sm btn-primary">Novo</a>
     <hr>
     <table class="table">
         <tr>
-            <th>ID</th>
             <th>Usuário</th>
             <th>E-mail</th>
             <th>Nível permissão</th>
@@ -13,17 +12,13 @@
         </tr>
         {% for usuario in usuarios %}
             <tr>
-                <td>{{ usuario.id }}</td>
                 <td>{{ usuario.username }}</td>
                 <td>{{ usuario.email }}</td>
-                <td>
-                    {% for role in usuario.roles %}
-                        {{ role }}
-                    {% endfor %}
-                </td>
+                <td>{{ usuario.tipo }}</td>
                 <td>
                     <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-sm btn-warning">Editar</a>
                     <a href="{{ path('fos_user_profile_show') }}" class="btn btn-sm btn-default">Info</a>
+                    <a href="{{ path('admin_usuarios_excluir', { 'id' : usuario.id }) }}" class="btn btn-sm btn-danger">Excluir</a>
                 </td>
             </tr>
         {% endfor %}

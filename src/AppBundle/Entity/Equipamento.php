@@ -44,10 +44,10 @@ class Equipamento
     private $descricao;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Departamento", inversedBy="equipamentos")
-     * @ORM\JoinColumn(name="departamento_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Setor", inversedBy="equipamentos")
+     * @ORM\JoinColumn(name="setor_id", referencedColumnName="id")
      */
-    private $departamento;
+    private $setor;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ordem", mappedBy="equipamento")
@@ -130,14 +130,14 @@ class Equipamento
         return $this;
     }
 
-    public function getDepartamento()
+    public function getSetor()
     {
-        return $this->departamento;
+        return $this->setor;
     }
 
-    public function setDepartamento(Departamento $departamento = null)
+    public function setSetor(Setor $setor = null)
     {
-        $this->departamento = $departamento;
+        $this->setor = $setor;
         return $this;
     }
 

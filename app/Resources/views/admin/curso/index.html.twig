@@ -5,14 +5,12 @@
     <hr>
     <table class="table table-responsive">
         <tr>
-            <th>ID</th>
             <th>Nome</th>
             <th>Descrição</th>
             <th>Opções</th>
         </tr>
         {% for curso in cursos %}
             <tr>
-                <td>{{ curso.id }}</td>
                 <td>{{ curso.nome }}</td>
                 <td>{{ curso.descricao }}</td>
                 <td>

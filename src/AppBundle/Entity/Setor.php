@@ -4,12 +4,13 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Table(name="departamentos")
+ * @ORM\Table(name="setores")
  * @ORM\Entity()
  */
-class Departamento
+class Setor
 {
     /**
      * @ORM\Id
@@ -24,7 +25,14 @@ class Departamento
     private $nome;
 
     /**
-     * @ORM\OneToMany(targetEntity="Equipamento", mappedBy="departamento")
+     * @ORM\Column(name="foto", type="string")
+     * @Assert\NotBlank(message="Envie a foto do setor")
+     * @Assert\File(mimeTypes={})
+     */
+    private $foto;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Equipamento", mappedBy="setor")
      */
     private $equipamentos;
 
@@ -62,7 +70,6 @@ class Departamento
     public function addEquipamento(Equipamento $equipamento)
     {
         $this->equipamentos[] = $equipamento;
-
         return $this;
     }
 

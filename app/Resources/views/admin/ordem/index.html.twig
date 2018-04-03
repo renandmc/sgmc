@@ -5,8 +5,7 @@
     <hr>
     <table class="table table-responsive">
         <tr>
-            <th>ID</th>
-            <th>Usuário (e-mail)</th>
+            <th>Usuário</th>
             <th>Departamento</th>
             <th>Equipamento</th>
             <th>Descrição do defeito</th>
@@ -14,9 +13,8 @@
         </tr>
         {% for ordem in ordens %}
             <tr>
-                <td>{{ ordem.id }}</td>
                 <td>{{ ordem.usuario }}</td>
-                <td>{{ ordem.equipamento.departamento }}</td>
+                <td>{{ ordem.equipamento.setor }}</td>
                 <td>{{ ordem.equipamento }}</td>
                 <td>{{ ordem.descricao }}</td>
                 <td>
