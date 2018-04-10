@@ -21,3 +21,11 @@ body > .container-fluid{
     color: #FFFFFF;
     background-color: #222222;
 }
+
+.foto{
+    width: 300px;
+}
+
+.foto-table{
+    height: 100px;
+}

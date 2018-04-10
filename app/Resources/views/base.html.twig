@@ -38,9 +38,9 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li></li>
                                 {% if app.user %}
-                                    <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
+                                    <li><a href="{{ path('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
                                 {% else %}
-                                    <li><a href="{{ path('fos_user_security_login') }}"><span class="glyphicon glyphicon-log-in"></span> Entrar</a></li>
+                                    <li><a href="{{ path('login') }}"><span class="glyphicon glyphicon-log-in"></span> Entrar</a></li>
                                 {% endif %}
                             </ul>
                         </div>

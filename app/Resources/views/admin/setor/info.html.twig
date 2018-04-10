@@ -7,8 +7,14 @@
         Info setor
     </h1>
     <hr>
-    <h3>ID: {{ setor.id }}</h3>
-    <h3>Nome: {{ setor.nome }}</h3>
+    <div class="row">
+        <div class="col-xs-6">
+            <h3>Nome: {{ setor.nome }}</h3>
+        </div>
+        <div class="col-xs-6">
+            <img src="{{ vich_uploader_asset(setor, 'imageFile') }}" alt="{{ setor.nome }}" class="img-responsive foto">
+        </div>
+    </div>
     <a href="{{ path('admin_setores_editar', { 'id': setor.id }) }}" class="btn btn-warning">Editar</a>
     <a href="{{ path('admin_setores_excluir', { 'id': setor.id }) }}" class="btn btn-danger">Excluir</a>
     <hr>

@@ -1,17 +1,18 @@
 {% extends 'admin/index.html.twig' %}
 {% block main %}
     <h1>
-        <a href="{{ path('admin_departamentos_index') }}" class="btn btn-default">
+        <a href="{{ path('admin_setores_index') }}" class="btn btn-default">
             <span class="glyphicon glyphicon-arrow-left"></span>
         </a>
-        Excluir departamento
+        Excluir setor
     </h1>
     <hr>
-    <h3>ID: {{ departamento.id }}</h3>
-    <h3>Nome: {{ departamento.nome }}</h3>
+    <h3>ID: {{ setor.id }}</h3>
+    <h3>Nome: {{ setor.nome }}</h3>
+    <h3>Foto: <img src="{{ vich_uploader_asset(setor, 'imageFile') }}" alt="{{ setor.nome }}" class="img-responsive foto"></h3>
     <hr>
-    <h2>Deseja excluir o departamento?</h2>
-    <form action="{{ path('admin_departamentos_excluir', {'id': departamento.id}) }}" method="post">
+    <h2>Deseja excluir o setor?</h2>
+    <form action="{{ path('admin_setores_excluir', {'id': setor.id}) }}" method="post">
         <input type="submit" value="Sim" name="del" class="btn btn-danger">
         <input type="submit" value="Não" name="del" class="btn btn-default">
     </form>

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Usuario;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -13,44 +14,32 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UsuarioType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('tipo', ChoiceType::class, array(
                 'choices' => array(
-                    'Representante' => 'Representante',
-                    'Professor' => 'Professor',
-                    'Administrador' => 'Administrador'
+                    Usuario::ADMIN => Usuario::ADMIN,
+                    Usuario::PROF => Usuario::PROF,
+                    Usuario::REP => Usuario::REP
                 ),
                 'choices_as_values' => true
             ))
-            ->add('username', TextType::class, array(
-                'label' => 'Usuário'
-            ))
-            ->add('email', EmailType::class, array(
-                'label' => 'E-mail'
-            ))
-            ->add('plainPassword', RepeatedType::class, array(
+            ->add('email', EmailType::class, array('label' => 'E-mail'))
+            ->add('usuario', TextType::class, array('label' => 'Usuário'))
+            ->add('senhaLimpa', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'first_options' => array('label' => 'Senha'),
                 'second_options' => array('label' => 'Repita a senha')
             ));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'AppBundle\Entity\Usuario'));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix()
     {
         return 'appbundle_usuario';

@@ -18,7 +18,7 @@ class EquipamentoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('departamento',EntityType::class, array(
+            ->add('setor',EntityType::class, array(
                 'class' => 'Setor',
                 'choice_label' => 'nome'
             ))
