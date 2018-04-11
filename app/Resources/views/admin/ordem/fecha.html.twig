@@ -1,0 +1,18 @@
+{% extends 'admin/index.html.twig' %}
+{% block main %}
+    <h1>
+        <a href="{{ path('admin_ordens_index') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+        </a>
+        Fechar ordem de serviço
+    </h1>
+    <h2>Equipamento: {{ ordem.equipamento }}</h2>
+    <h2>Defeito: {{ ordem.descricaoDefeito }}</h2>
+    <h2>Data aberto: {{ ordem.dataAberto|date('d/m/Y') }}</h2>
+    <hr>
+    <h2>Deseja fechar a ordem?</h2>
+    <form action="{{ path('admin_ordens_fecha', { 'id' : ordem.id }) }}" method="post">
+        <input type="submit" value="Sim" name="fecha" class="btn btn-primary">
+        <input type="submit" value="Não" name="fecha" class="btn btn-default">
+    </form>
+{% endblock %}

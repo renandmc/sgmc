@@ -3,20 +3,25 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Curso;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
+ * Class CursoController
+ * @package AppBundle\Controller\Admin
+ *
  * @Route("admin/cursos")
  */
 class CursoController extends Controller
 {
     /**
+     * Action indexAction
+     * @return Response
+     *
      * @Route("/", name="admin_cursos_index")
-     * @Method("GET")
      */
     public function indexAction()
     {
@@ -26,8 +31,11 @@ class CursoController extends Controller
     }
 
     /**
+     * Action infoAction
+     * @param Curso $curso
+     * @return Response
+     *
      * @Route("/info/{id}", name="admin_cursos_info")
-     * @Method("GET")
      */
     public function infoAction(Curso $curso)
     {
@@ -35,8 +43,11 @@ class CursoController extends Controller
     }
 
     /**
+     * Action novoAction
+     * @param Request $request
+     * @return RedirectResponse|Response
+     *
      * @Route("/novo", name="admin_cursos_novo")
-     * @Method({"GET", "POST"})
      */
     public function novoAction(Request $request)
     {
@@ -54,8 +65,12 @@ class CursoController extends Controller
     }
 
     /**
+     * Action editarAction
+     * @param Request $request
+     * @param Curso $curso
+     * @return RedirectResponse|Response
+     *
      * @Route("/editar/{id}", name="admin_cursos_editar")
-     * @Method({"GET", "POST"})
      */
     public function editarAction(Request $request, Curso $curso)
     {
@@ -63,15 +78,19 @@ class CursoController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success','Curso editada');
+            $this->addFlash('success','Curso editado');
             return $this->redirectToRoute('admin_cursos_index');
         }
         return $this->render('admin/curso/editar.html.twig', array('curso' => $curso, 'form' => $editForm->createView()));
     }
 
     /**
+     * Action excluirAction
+     * @param Request $request
+     * @param Curso $curso
+     * @return RedirectResponse|Response
+     *
      * @Route("/excluir/{id}", name="admin_cursos_excluir")
-     * @Method({"GET", "POST"})
      */
     public function excluirAction(Request $request, Curso $curso)
     {
@@ -86,5 +105,4 @@ class CursoController extends Controller
         }
         return $this->render('admin/curso/excluir.html.twig', array('curso' => $curso));
     }
-
 }

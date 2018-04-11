@@ -4,86 +4,106 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Class Curso
+ * @package AppBundle\Entity
+ *
  * @ORM\Entity()
  * @ORM\Table(name="cursos")
+ * @UniqueEntity(fields="nome", message="Nome já utilizado")
  */
 class Curso
 {
-
     /**
-     * @ORM\Id
+     * @var int
+     *
+     * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @var string
+     *
+     * @ORM\Column(name="nome", type="string", length=150, unique=true)
      * @Assert\NotBlank(message="Preencha o nome")
      */
     private $nome;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $descricao;
-
-    /**
+     * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Turma", mappedBy="curso")
      */
     private $turmas;
 
+    /**
+     * Curso constructor.
+     */
     public function __construct()
     {
         $this->turmas = new ArrayCollection();
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->nome;
     }
 
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getNome()
     {
         return $this->nome;
     }
 
+    /**
+     * @param string $nome
+     * @return Curso
+     */
     public function setNome($nome)
     {
         $this->nome = $nome;
         return $this;
     }
 
-    public function getDescricao()
-    {
-        return $this->descricao;
-    }
-
-    public function setDescricao($descricao)
-    {
-        $this->descricao = $descricao;
-        return $this;
-    }
-
+    /**
+     * @return ArrayCollection
+     */
     public function getTurmas()
     {
         return $this->turmas;
     }
 
+    /**
+     * @param Turma|null $turma
+     * @return Curso
+     */
     public function addTurma(Turma $turma = null)
     {
         $this->turmas[] = $turma;
         return $this;
     }
 
+    /**
+     * @param Turma $turma
+     */
     public function removeTurma(Turma $turma)
     {
         $this->turmas->removeElement($turma);

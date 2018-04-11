@@ -3,19 +3,26 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Equipamento;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use AppBundle\Form\EquipamentoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
+ * Class EquipamentoController
+ * @package AppBundle\Controller\Admin
+ *
  * @Route("admin/equipamentos")
  */
 class EquipamentoController extends Controller
 {
     /**
+     * Action indexAction
+     * @return Response
+     *
      * @Route("/", name="admin_equipamentos_index")
-     * @Method("GET")
      */
     public function indexAction()
     {
@@ -25,13 +32,16 @@ class EquipamentoController extends Controller
     }
 
     /**
+     * Action novoAction
+     * @param Request $request
+     * @return RedirectResponse|Response
+     *
      * @Route("/novo", name="admin_equipamentos_novo")
-     * @Method({"GET", "POST"})
      */
     public function novoAction(Request $request)
     {
         $equipamento = new Equipamento();
-        $form = $this->createForm('AppBundle\Form\EquipamentoType', $equipamento);
+        $form = $this->createForm(EquipamentoType::class, $equipamento);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -43,8 +53,11 @@ class EquipamentoController extends Controller
     }
 
     /**
+     * Action infoAction
+     * @param Equipamento $equipamento
+     * @return Response
+     *
      * @Route("/info/{id}", name="admin_equipamentos_info")
-     * @Method("GET")
      */
     public function infoAction(Equipamento $equipamento)
     {
@@ -52,12 +65,16 @@ class EquipamentoController extends Controller
     }
 
     /**
+     * Action editarAction
+     * @param Request $request
+     * @param Equipamento $equipamento
+     * @return RedirectResponse|Response
+     *
      * @Route("/editar/{id}", name="admin_equipamentos_editar")
-     * @Method({"GET", "POST"})
      */
     public function editarAction(Request $request, Equipamento $equipamento)
     {
-        $editForm = $this->createForm('AppBundle\Form\EquipamentoType', $equipamento);
+        $editForm = $this->createForm(EquipamentoType::class, $equipamento);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
@@ -67,8 +84,12 @@ class EquipamentoController extends Controller
     }
 
     /**
+     * Action excluirAction
+     * @param Request $request
+     * @param Equipamento $equipamento
+     * @return RedirectResponse|Response
+     *
      * @Route("/excluir/{id}", name="admin_equipamentos_excluir")
-     * @Method({"GET", "POST"})
      */
     public function excluirAction(Request $request, Equipamento $equipamento)
     {
@@ -82,5 +103,4 @@ class EquipamentoController extends Controller
         }
         return $this->render('admin/equipamento/excluir.html.twig', array('equipamento' => $equipamento));
     }
-
 }

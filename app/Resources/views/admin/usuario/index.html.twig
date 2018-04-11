@@ -3,24 +3,27 @@
     <h1>Usuários</h1>
     <a href="{{ path('admin_usuarios_novo') }}" class="btn btn-sm btn-primary">Novo</a>
     <hr>
-    <table class="table">
-        <tr>
-            <th>Usuário</th>
-            <th>E-mail</th>
-            <th>Nível permissão</th>
-            <th>Opções</th>
-        </tr>
-        {% for usuario in usuarios %}
+    {% if usuarios|length > 0 %}
+        <table class="table table-responsive">
             <tr>
-                <td>{{ usuario.username }}</td>
-                <td>{{ usuario.email }}</td>
-                <td>{{ usuario.tipo }}</td>
-                <td>
-                    <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-sm btn-warning">Editar</a>
-                    <a href="{{ path('fos_user_profile_show') }}" class="btn btn-sm btn-default">Info</a>
-                    <a href="{{ path('admin_usuarios_excluir', { 'id' : usuario.id }) }}" class="btn btn-sm btn-danger">Excluir</a>
-                </td>
+                <th>Usuário</th>
+                <th>E-mail</th>
+                <th>Nível permissão</th>
+                <th>Opções</th>
             </tr>
-        {% endfor %}
-    </table>
+            {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.usuario}}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.tipo }}</td>
+                    <td>
+                        <a href="{{ path('admin_usuarios_info', { 'id' : usuario.id }) }}" class="btn btn-sm btn-default">Info</a>
+                        <a href="{{ path('admin_usuarios_excluir', { 'id' : usuario.id }) }}" class="btn btn-sm btn-danger">Excluir</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2>Nenhum usuário cadastrado</h2>
+    {% endif %}
 {% endblock %}

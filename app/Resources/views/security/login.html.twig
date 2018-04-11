@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/signin.css') }}">
+{% endblock %}
+{% block content %}
+    {{ include('_flash_messages.html.twig') }}
+    {% if erro %}
+        <div class="alert alert-danger">{{ erro.messageKey|trans(erro.messageData, 'security') }}</div>
+    {% endif %}
+    <form action="{{ path('login') }}" method="post" class="form-signin">
+        <h2 class="form-signin-heading">Entrar</h2>
+        <label for="username" class="sr-only">Usuário</label>
+        <input type="text" id="username" name="_username" value="{{ ultimo_usuario }}" class="form-control" required autofocus>
+        <label for="password" class="sr-only">Senha</label>
+        <input type="password" id="password" name="_password" class="form-control" required>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <input type="submit" id="_submit" name="_submit" value="Login" class="btn btn-lg btn-primary btn-block">
+        </form>
+{% endblock %}

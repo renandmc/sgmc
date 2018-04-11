@@ -3,26 +3,30 @@
     <h1>Ordens de serviço</h1>
     <a href="{{ path('admin_ordens_busca') }}" class="btn btn-sm btn-primary">Novo</a>
     <hr>
-    <table class="table table-responsive">
-        <tr>
-            <th>Usuário</th>
-            <th>Departamento</th>
-            <th>Equipamento</th>
-            <th>Descrição do defeito</th>
-            <th>Opções</th>
-        </tr>
-        {% for ordem in ordens %}
+    {% if ordens|length > 0 %}
+        <table class="table table-responsive">
             <tr>
-                <td>{{ ordem.usuario }}</td>
-                <td>{{ ordem.equipamento.setor }}</td>
-                <td>{{ ordem.equipamento }}</td>
-                <td>{{ ordem.descricao }}</td>
-                <td>
-                    <a href="{{ path('admin_ordens_info', { 'id': ordem.id }) }}" class="btn btn-sm btn-default">Info</a>
-                    <a href="{{ path('admin_ordens_editar', { 'id': ordem.id }) }}" class="btn btn-sm btn-warning">Editar</a>
-                    <a href="{{ path('admin_ordens_excluir', { 'id': ordem.id }) }}" class="btn btn-sm btn-danger">Excluir</a>
-                </td>
+                <th>Usuário</th>
+                <th>Departamento</th>
+                <th>Equipamento</th>
+                <th>Descrição do defeito</th>
+                <th>Opções</th>
             </tr>
-        {% endfor %}
-    </table>
+            {% for ordem in ordens %}
+                <tr>
+                    <td>{{ ordem.usuario }}</td>
+                    <td>{{ ordem.equipamento.setor }}</td>
+                    <td>{{ ordem.equipamento }}</td>
+                    <td>{{ ordem.descricao }}</td>
+                    <td>
+                        <a href="{{ path('admin_ordens_info', { 'id': ordem.id }) }}" class="btn btn-sm btn-default">Info</a>
+                        <a href="{{ path('admin_ordens_editar', { 'id': ordem.id }) }}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{{ path('admin_ordens_excluir', { 'id': ordem.id }) }}" class="btn btn-sm btn-danger">Excluir</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2>Nenhuma ordem cadastrada</h2>
+    {% endif %}
 {% endblock %}

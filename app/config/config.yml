@@ -6,6 +6,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: pt_BR
+    setor_fotos: '%kernel.root_dir%/../web/uploads/setores'
 framework:
     #esi: ~
     translator: ~
@@ -57,10 +58,17 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 # FOSUserBundle configuration
-fos_user:
+#fos_user:
+#    db_driver: orm
+#    firewall_name: main
+#    user_class: AppBundle\Entity\Usuario
+#    from_email:
+#        address: "teste@abc.com"
+#        sender_name: "SGMC - ETEC"
+# VicHUploader configuration
+vich_uploader:
     db_driver: orm
-    firewall_name: main
-    user_class: AppBundle\Entity\Usuario
-    from_email:
-        address: "teste@abc.com"
-        sender_name: "SGMC - ETEC"
+    mappings:
+        setor_img:
+            uri_prefix: /uploads/setores
+            upload_destination: '%kernel.root_dir%/../web/uploads/setores'

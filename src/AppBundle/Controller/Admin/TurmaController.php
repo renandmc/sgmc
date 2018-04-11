@@ -3,19 +3,26 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Turma;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use AppBundle\Form\TurmaType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
+ * Class TurmaController
+ * @package AppBundle\Controller\Admin
+ *
  * @Route("admin/turmas")
  */
 class TurmaController extends Controller
 {
     /**
+     * Action indexAction
+     * @return Response
+     *
      * @Route("/", name="admin_turmas_index")
-     * @Method("GET")
      */
     public function indexAction()
     {
@@ -25,8 +32,11 @@ class TurmaController extends Controller
     }
 
     /**
+     * Action infoAction
+     * @param Turma $turma
+     * @return Response
+     *
      * @Route("/info/{id}", name="admin_turmas_info")
-     * @Method("GET")
      */
     public function infoAction(Turma $turma)
     {
@@ -34,13 +44,16 @@ class TurmaController extends Controller
     }
 
     /**
+     * Action novoAction
+     * @param Request $request
+     * @return RedirectResponse|Response
+     *
      * @Route("/novo", name="admin_turmas_novo")
-     * @Method({"GET", "POST"})
      */
     public function novoAction(Request $request)
     {
         $turma = new Turma();
-        $form = $this->createForm('AppBundle\Form\TurmaType', $turma);
+        $form = $this->createForm(TurmaType::class, $turma);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -52,15 +65,17 @@ class TurmaController extends Controller
         return $this->render('admin/turma/novo.html.twig', array('turma' => $turma, 'form' => $form->createView()));
     }
 
-
-
     /**
+     * Action editarAction
+     * @param Request $request
+     * @param Turma $turma
+     * @return RedirectResponse|Response
+     *
      * @Route("/editar/{id}", name="admin_turmas_editar")
-     * @Method({"GET", "POST"})
      */
     public function editarAction(Request $request, Turma $turma)
     {
-        $editForm = $this->createForm('AppBundle\Form\TurmaType', $turma);
+        $editForm = $this->createForm(TurmaType::class, $turma);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
@@ -71,8 +86,12 @@ class TurmaController extends Controller
     }
 
     /**
+     * Action excluirAction
+     * @param Request $request
+     * @param Turma $turma
+     * @return RedirectResponse|Response
+     *
      * @Route("/excluir/{id}", name="admin_turmas_excluir")
-     * @Method({"GET", "POST"})
      */
     public function excluirAction(Request $request, Turma $turma)
     {
@@ -87,5 +106,4 @@ class TurmaController extends Controller
         }
         return $this->render('admin/turma/excluir.html.twig', array('turma' => $turma));
     }
-
 }

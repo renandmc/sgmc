@@ -3,24 +3,28 @@
     <h1>Turmas</h1>
     <a href="{{ path('admin_turmas_novo') }}" class="btn btn-sm btn-primary">Novo</a>
     <hr>
-    <table class="table table-responsive">
-        <tr>
-            <th>Módulo</th>
-            <th>Turno</th>
-            <th>Curso</th>
-            <th>Opções</th>
-        </tr>
-        {% for turma in turmas %}
+    {% if turmas|length > 0 %}
+        <table class="table table-responsive">
             <tr>
-                <td>{{ turma.modulo }}</td>
-                <td>{{ turma.turno }}</td>
-                <td>{{ turma.curso.nome }}</td>
-                <td>
-                    <a href="{{ path('admin_turmas_info', { 'id': turma.id }) }}" class="btn btn-sm btn-default">Info</a>
-                    <a href="{{ path('admin_turmas_editar', { 'id': turma.id }) }}" class="btn btn-sm btn-warning">Editar</a>
-                    <a href="{{ path('admin_turmas_excluir', { 'id': turma.id }) }}" class="btn btn-sm btn-danger">Excluir</a>
-                </td>
+                <th>Módulo</th>
+                <th>Turno</th>
+                <th>Curso</th>
+                <th>Opções</th>
             </tr>
-        {% endfor %}
-    </table>
+            {% for turma in turmas %}
+                <tr>
+                    <td>{{ turma.modulo }}</td>
+                    <td>{{ turma.turno }}</td>
+                    <td>{{ turma.curso.nome }}</td>
+                    <td>
+                        <a href="{{ path('admin_turmas_info', { 'id': turma.id }) }}" class="btn btn-sm btn-default">Info</a>
+                        <a href="{{ path('admin_turmas_editar', { 'id': turma.id }) }}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{{ path('admin_turmas_excluir', { 'id': turma.id }) }}" class="btn btn-sm btn-danger">Excluir</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2>Nenhuma turma cadastrada</h2>
+    {% endif %}
 {% endblock %}
