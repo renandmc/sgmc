@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block css %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/signin.css') }}">
+    {% stylesheets
+        'bundles/app/css/signin.css'
+        filter='cssrewrite' output='css/login.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
 {% endblock %}
 {% block content %}
     {{ include('_flash_messages.html.twig') }}

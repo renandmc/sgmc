@@ -1,0 +1,31 @@
+.navbar-brand {
+    height: 100px;
+    padding: 10px 10px;
+    font-size: 18px;
+}
+
+.navbar-brand > img{
+    height: 80px;
+}
+
+.logo-cps{
+    height: 50px;
+    padding-top: 5px;
+}
+
+body > .container-fluid{
+    padding: 105px 15px 0;
+}
+
+.footer{
+    color: #FFFFFF;
+    background-color: #222222;
+}
+
+.foto{
+    width: 300px;
+}
+
+.foto-table{
+    height: 100px;
+}

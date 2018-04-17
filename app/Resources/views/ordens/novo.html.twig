@@ -1,0 +1,33 @@
+{% extends 'admin/index.html.twig' %}
+{% block main %}
+    <h1>
+        <a href="{{ path('admin_ordens_busca') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+        </a>
+        Nova ordem de serviço
+    </h1>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12 col-md-5">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h3>{{ equipamento.setor }}</h3>
+                </div>
+                <div class="col-xs-6">
+                    <h3>{{ equipamento }}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <img src="{{ vich_uploader_asset(equipamento.setor, 'imageFile') }}" class="img-responsive foto-table">
+                </div>
+                <div class="col-xs-6">
+                    <img src="{{ vich_uploader_asset(equipamento, 'imageFile') }}" class="img-responsive foto-table">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-7">
+            {{ include('_form.html.twig', { 'form': form }) }}
+        </div>
+    </div>
+{% endblock %}

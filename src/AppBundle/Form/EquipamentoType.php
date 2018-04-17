@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class EquipamentoType extends AbstractType
 {
@@ -19,8 +20,15 @@ class EquipamentoType extends AbstractType
     {
         $builder
             ->add('setor',EntityType::class, array(
-                'class' => 'Setor',
+                'class' => 'AppBundle\Entity\Setor',
                 'choice_label' => 'nome'
+            ))
+            ->add('imageFile', VichImageType::class, array(
+                'label' => 'Foto',
+                'required' => true,
+                'allow_delete' => false,
+                'image_uri' => false,
+                'download_uri' => false
             ))
             ->add('numero', IntegerType::class)
             ->add('tipoEquipamento', TextType::class)

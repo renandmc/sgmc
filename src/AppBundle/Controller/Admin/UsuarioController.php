@@ -5,6 +5,7 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\Usuario;
 use AppBundle\Form\UsuarioType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class UsuarioController extends Controller
 {
+
     /**
      * Action indexAction
      * @return Response
@@ -26,21 +28,24 @@ class UsuarioController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $usuarios = $em->getRepository('AppBundle:Usuario')->findAll();
-        return $this->render('admin/usuario/index.html.twig', array('usuarios' => $usuarios));
+        $usuarios = $this->getDoctrine()->getRepository('AppBundle:Usuario')->findAll();
+        return $this->render('usuarios/index.html.twig', array('usuarios' => $usuarios));
     }
 
     /**
      * Action infoAction
-     * @param Usuario $usuario
+     * @param int $id
      * @return Response
      *
      * @Route("/info/{id}", name="admin_usuarios_info")
      */
-    public function infoAction(Usuario $usuario)
+    public function infoAction($id)
     {
-        return $this->render('admin/usuario/info.html.twig', array('usuario' => $usuario));
+        $usuario = $this->getDoctrine()->getRepository('AppBundle:Usuario')->find($id);
+        if (!$usuario){
+            $this->createNotFoundException("Nenhum usuário cadastrado com ID: $id");
+        }
+        return $this->render('usuarios/info.html.twig', array('usuario' => $usuario));
     }
 
     /**
@@ -56,17 +61,6 @@ class UsuarioController extends Controller
         $form = $this->createForm(UsuarioType::class, $usuario);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            switch ($usuario->getTipo()){
-                case Usuario::ADMIN:
-                    $usuario->addRole(Usuario::ROLE_SUPER_ADMIN);
-                    break;
-                case Usuario::PROF:
-                    $usuario->addRole(Usuario::ROLE_ADMIN);
-                    break;
-                case Usuario::REP:
-                    $usuario->addRole(Usuario::ROLE_DEFAULT);
-                    break;
-            }
             $senha = $this->get('security.password_encoder')->encodePassword($usuario, $usuario->getSenhaLimpa());
             $usuario->setSenha($senha);
             $em = $this->getDoctrine()->getManager();
@@ -75,20 +69,24 @@ class UsuarioController extends Controller
             $this->addFlash('success', 'Usuário adicionado');
             return $this->redirectToRoute('admin_usuarios_index');
         }
-        return $this->render('admin/usuario/novo.html.twig', array('usuario' => $usuario, 'form' => $form->createView()));
+        return $this->render('usuarios/novo.html.twig', array('usuario' => $usuario, 'form' => $form->createView()));
     }
 
     /**
      * Action excluirAction
      *
      * @param Request $request
-     * @param Usuario $usuario
+     * @param int $id
      * @return RedirectResponse|Response
      *
      * @Route("/excluir/{id}", name="admin_usuarios_excluir")
      */
-    public function excluirAction(Request $request, Usuario $usuario)
+    public function excluirAction(Request $request, $id)
     {
+        $usuario = $this->getDoctrine()->getRepository('AppBundle:Usuario')->find($id);
+        if (!$usuario){
+            $this->createNotFoundException("Nenhum usuário cadastrado com ID: $id");
+        }
         if ($request->getMethod() == 'POST') {
             if ($request->get('del') == 'Sim') {
                 if ($this->getUser() != $usuario) {
@@ -100,6 +98,7 @@ class UsuarioController extends Controller
             }
             return $this->redirectToRoute('admin_usuarios_index');
         }
-        return $this->render('admin/usuario/excluir.html.twig', array('usuario' => $usuario));
+        return $this->render('usuarios/excluir.html.twig', array('usuario' => $usuario));
     }
+
 }

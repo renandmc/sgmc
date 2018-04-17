@@ -26,7 +26,6 @@ class UsuarioType extends AbstractType
                 ),
                 'choices_as_values' => true
             ))
-            ->add('email', EmailType::class, array('label' => 'E-mail'))
             ->add('usuario', TextType::class, array('label' => 'Usuário'))
             ->add('senhaLimpa', RepeatedType::class, array(
                 'type' => PasswordType::class,

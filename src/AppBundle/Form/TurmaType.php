@@ -18,7 +18,7 @@ class TurmaType extends AbstractType
     {
         $builder
             ->add('curso', EntityType::class, array(
-                'class' => 'AppBundle:Curso',
+                'class' => 'AppBundle\Entity\Curso',
                 'choice_label' => 'nome'
             ))
             ->add('modulo',TextType::class)

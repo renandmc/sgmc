@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use function date;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -50,6 +51,14 @@ class Turma
      * @ORM\Column(name="ano", type="datetime", nullable=true)
      */
     private $ano;
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->modulo . ' - ' . $this->turno;
+    }
 
     /**
      * @return int

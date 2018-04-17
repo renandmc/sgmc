@@ -77,7 +77,7 @@ class Setor
      */
     public function __toString()
     {
-        return "$this->nome";
+        return $this->nome;
     }
 
     /**

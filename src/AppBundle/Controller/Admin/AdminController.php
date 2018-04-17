@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
+
     /**
      * Action indexAction
      * @return Response
@@ -18,4 +19,5 @@ class AdminController extends Controller
     {
         return $this->render('admin/index.html.twig', array());
     }
+
 }

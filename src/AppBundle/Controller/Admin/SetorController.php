@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class SetorController extends Controller
 {
+
     /**
      * Action indexAction
      * @return Response
@@ -28,19 +29,23 @@ class SetorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $setores = $em->getRepository('AppBundle:Setor')->findAll();
-        return $this->render('admin/setor/index.html.twig', array('setores' => $setores));
+        return $this->render('setores/index.html.twig', array('setores' => $setores));
     }
 
     /**
      * Action infoAction
-     * @param Setor $setor
+     * @param int $id
      * @return Response
      *
      * @Route("/info/{id}", name="admin_setores_info")
      */
-    public function infoAction(Setor $setor)
+    public function infoAction($id)
     {
-        return $this->render('admin/setor/info.html.twig', array('setor' => $setor));
+        $setor = $this->getDoctrine()->getRepository('AppBundle:Setor')->find($id);
+        if (!$setor){
+            $this->createNotFoundException("Nenhum setor cadastrado com ID: $id");
+        }
+        return $this->render('setores/info.html.twig', array('setor' => $setor));
     }
 
     /**
@@ -62,19 +67,23 @@ class SetorController extends Controller
             $this->addFlash('success','Setor criado');
             return $this->redirectToRoute('admin_setores_info', array('id' => $setor->getId()));
         }
-        return $this->render('admin/setor/novo.html.twig', array('setor' => $setor, 'form' => $form->createView()));
+        return $this->render('setores/novo.html.twig', array('setor' => $setor, 'form' => $form->createView()));
     }
 
     /**
      * Action editarAction
      * @param Request $request
-     * @param Setor $setor
+     * @param int $id
      * @return RedirectResponse|Response
      *
      * @Route("/editar/{id}", name="admin_setores_editar")
      */
-    public function editarAction(Request $request, Setor $setor)
+    public function editarAction(Request $request, $id)
     {
+        $setor = $this->getDoctrine()->getRepository('AppBundle:Setor')->find($id);
+        if (!$setor){
+            $this->createNotFoundException("Nenhum setor cadastrado com ID: $id");
+        }
         $form = $this->createForm(SetorType::class, $setor);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -82,21 +91,25 @@ class SetorController extends Controller
             $this->addFlash('success', 'Setor atualizado');
             return $this->redirectToRoute('admin_setores_info', array('id' => $setor->getId()));
         }
-        return $this->render('admin/setor/editar.html.twig', array('setor' => $setor, 'form' => $form->createView()));
+        return $this->render('setores/editar.html.twig', array('setor' => $setor, 'form' => $form->createView()));
     }
 
     /**
      * Action excluirAction
      * @param Request $request
-     * @param Setor $setor
+     * @param int $id
      * @return RedirectResponse|Response
      *
      * @Route("/excluir/{id}", name="admin_setores_excluir")
      */
-    public function excluirAction(Request $request, Setor $setor)
+    public function excluirAction(Request $request, $id)
     {
-        if($request->getMethod() == 'POST'){
-            if($request->get('del') == 'Sim'){
+        $setor = $this->getDoctrine()->getRepository('AppBundle:Setor')->find($id);
+        if (!$setor){
+           $this->createNotFoundException("Nenhum setor cadastrado com ID: $id");
+        }
+        if ($request->getMethod() == 'POST'){
+            if ($request->get('del') == 'Sim'){
                 $em = $this->getDoctrine()->getManager();
                 $em->remove($setor);
                 $em->flush();
@@ -104,7 +117,7 @@ class SetorController extends Controller
             }
             return $this->redirectToRoute('admin_setores_index');
         }
-        return $this->render('admin/setor/excluir.html.twig', array('setor' => $setor));
+        return $this->render('setores/excluir.html.twig', array('setor' => $setor));
     }
 
 }

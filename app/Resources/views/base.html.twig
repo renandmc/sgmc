@@ -9,9 +9,13 @@
             <link rel="icon" type="image/x-icon" href="{{ asset('img/logo.png') }}"/>
         {% endblock %}
         {% block css %}
-            <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.css') }}">
-            <link rel="stylesheet" href="{{ asset('css/sticky-footer-navbar.css') }}">
-            <link rel="stylesheet" href="{{ asset('css/ajustes.css') }}">
+            {% stylesheets
+                'bundles/app/bootstrap/css/bootstrap.css'
+                'bundles/app/css/sticky-footer-navbar.css'
+                'bundles/app/css/ajustes.css'
+                filter='cssrewrite' output='css/main.css' %}
+                <link rel="stylesheet" href="{{ asset_url }}">
+            {% endstylesheets %}
         {% endblock %}
     </head>
     <body>
@@ -31,13 +35,14 @@
                         <div class="collapse navbar-collapse" id="navbar">
                             <ul class="nav navbar-nav">
                                 <li><a href="{{ path('home') }}"><span class="glyphicon glyphicon-home"></span> Página inicial</a></li>
+                                <li><a href="{{ path('sobre') }}"><span class="glyphicon glyphicon-info-sign"></span> Sobre</a></li>
                                 {% if is_granted('ROLE_USER') %}
                                     <li><a href="{{ path('admin_home') }}"><span class="glyphicon glyphicon-lock"></span> Admin</a></li>
                                 {% endif %}
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li></li>
                                 {% if app.user %}
+                                    <li><a href="{{ path('admin_usuarios_info', { 'id' : app.user.id }) }}"><span class="glyphicon glyphicon-user"></span> {{ app.user.usuario }}</a></li>
                                     <li><a href="{{ path('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
                                 {% else %}
                                     <li><a href="{{ path('login') }}"><span class="glyphicon glyphicon-log-in"></span> Entrar</a></li>
@@ -78,8 +83,12 @@
                 </footer>
             {% endblock %}
             {% block js %}
-                <script src="{{ asset('js/jquery.min.js') }}"></script>
-                <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+                {% javascripts
+                    '@AppBundle/Resources/public/js/jquery.min.js'
+                    '@AppBundle/Resources/public/js/bootstrap.min.js'
+                    output='js/main.js' %}
+                    <script src="{{ asset_url }}"></script>
+                {% endjavascripts %}
             {% endblock %}
         {% endblock %}
     </body>

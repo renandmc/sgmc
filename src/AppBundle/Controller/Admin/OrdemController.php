@@ -2,10 +2,10 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Entity\Equipamento;
 use AppBundle\Entity\Ordem;
 use AppBundle\Form\OrdemType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class OrdemController extends Controller
 {
+
     /**
      * Action indexAction
      * @return Response
@@ -27,20 +28,24 @@ class OrdemController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $ordens = $em->getRepository('AppBundle:Ordem')->findAll();
-        return $this->render('admin/ordem/index.html.twig', array('ordens' => $ordens));
+        $ordens = $this->getDoctrine()->getRepository('AppBundle:Ordem')->findAll();
+        return $this->render('ordens/index.html.twig', array('ordens' => $ordens));
     }
 
     /**
      * Action infoAction
+     * @param int $id
      * @return Response
      *
      * @Route("/info/{id}", name="admin_ordens_info")
      */
-    public function infoAction(Ordem $ordem)
+    public function infoAction($id)
     {
-        return $this->render('admin/ordem/info.html.twig', array('ordem' => $ordem));
+        $ordem = $this->getDoctrine()->getRepository('AppBundle:Ordem')->find($id);
+        if(!$ordem){
+            $this->createNotFoundException("Nenhuma ordem cadastrada com ID: $id");
+        }
+        return $this->render('ordens/info.html.twig', array('ordem' => $ordem));
     }
 
     /**
@@ -53,32 +58,32 @@ class OrdemController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $setores = $em->getRepository('AppBundle:Setor')->findAll();
-        return $this->render('admin/ordem/busca.html.twig', array('setores' => $setores));
+        return $this->render('ordens/busca.html.twig', array('setores' => $setores));
     }
 
     /**
      * Action novoAction
      * @param Request $request
-     * @param Equipamento $equipamento
+     * @param int $id
      * @return RedirectResponse|Response
      *
      * @Route("/novo/{id}", name="admin_ordens_novo")
      */
-    public function novoAction(Request $request, Equipamento $equipamento)
+    public function novoAction(Request $request, $id)
     {
+        $equipamento = $this->getDoctrine()->getRepository('AppBundle:Equipamento')->find($id);
         $ordem = new Ordem();
         $form = $this->createForm(OrdemType::class, $ordem);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $em = $this->getDoctrine()->getManager();
             $ordem->setEquipamento($equipamento);
-            $ordem->setUsuario($this->getUser());
             $em->persist($ordem);
             $em->flush();
             $this->addFlash('success','Ordem criada');
             return $this->redirectToRoute('admin_ordens_index');
         }
-        return $this->render('admin/ordem/novo.html.twig', array('ordem' => $ordem, 'equipamento' => $equipamento ,'form' => $form->createView()));
+        return $this->render('ordens/novo.html.twig', array('ordem' => $ordem, 'equipamento' => $equipamento, 'form' => $form->createView()));
     }
 
     /**
@@ -91,14 +96,14 @@ class OrdemController extends Controller
      */
     public function editarAction(Request $request, Ordem $ordem)
     {
-        $editForm = $this->createForm(OrdemType::class, $ordem);
-        $editForm->handleRequest($request);
-        if ($editForm->isSubmitted() && $editForm->isValid()){
+        $form = $this->createForm(OrdemType::class, $ordem);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Ordem editada');
             return $this->redirectToRoute('admin_ordens_index');
         }
-        return $this->render('admin/ordem/editar.html.twig', array('ordem' => $ordem, 'form' => $editForm));
+        return $this->render('ordens/editar.html.twig', array('ordem' => $ordem, 'form' => $form));
     }
 
     /**
@@ -119,7 +124,7 @@ class OrdemController extends Controller
                 return $this->redirectToRoute('admin_ordens_index');
             }
         }
-        return $this->render('admin/ordem/fecha.html.twig', array('ordem' => $ordem));
+        return $this->render('ordens/fechar.html.twig', array('ordem' => $ordem));
     }
 
     /**
@@ -141,6 +146,6 @@ class OrdemController extends Controller
             }
             return $this->redirectToRoute('admin_ordens_index');
         }
-        return $this->render('admin/ordem/excluir.html.twig', array('ordem' => $ordem));
+        return $this->render('ordens/excluir.html.twig', array('ordem' => $ordem));
     }
 }

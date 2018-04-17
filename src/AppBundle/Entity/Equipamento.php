@@ -4,6 +4,10 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Class Equipamento
@@ -11,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity()
  * @ORM\Table(name="equipamentos")
+ * @Vich\Uploadable()
  */
 class Equipamento
 {
@@ -84,12 +89,34 @@ class Equipamento
     private $status;
 
     /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="equip_img", fileNameProperty="image.name", size="image.size")
+     */
+    private $imageFile;
+
+    /**
+     * @var EmbeddedFile
+     *
+     * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
+     */
+    private $image;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /**
      * Equipamento constructor.
      */
     public function __construct()
     {
         $this->ordens = new ArrayCollection();
         $this->status = self::STATUS_OK;
+        $this->image = new EmbeddedFile();
     }
 
     /**
@@ -97,7 +124,7 @@ class Equipamento
      */
     public function __toString()
     {
-        return $this->tipoEquipamento . ' ' . $this->modelo . ' ' . $this->marca;
+        return "$this->tipoEquipamento $this->modelo $this->marca";
     }
 
     /**
@@ -247,7 +274,7 @@ class Equipamento
      */
     public function getEquipamento()
     {
-        return $this->tipoEquipamento . ' ' . $this->marca . ' ' . $this->modelo;
+        return "$this->tipoEquipamento $this->marca $this->modelo";
     }
 
     /**
@@ -265,6 +292,46 @@ class Equipamento
     public function setStatus($status)
     {
         $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File|UploadedFile|null $imageFile
+     * @return Equipamento
+     * @throws \Exception
+     */
+    public function setImageFile(File $imageFile = null)
+    {
+        $this->imageFile = $imageFile;
+        if ($imageFile !== null){
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+        return $this;
+    }
+
+    /**
+     * @return EmbeddedFile
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param EmbeddedFile $image
+     * @return Equipamento
+     */
+    public function setImage(EmbeddedFile $image)
+    {
+        $this->image = $image;
         return $this;
     }
 

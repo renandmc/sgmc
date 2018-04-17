@@ -3,7 +3,9 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Curso;
+use AppBundle\Form\CursoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +19,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  */
 class CursoController extends Controller
 {
+
     /**
      * Action indexAction
      * @return Response
@@ -27,19 +30,23 @@ class CursoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $cursos = $em->getRepository('AppBundle:Curso')->findAll();
-        return $this->render('admin/curso/index.html.twig', array('cursos' => $cursos));
+        return $this->render('cursos/index.html.twig', array('cursos' => $cursos));
     }
 
     /**
      * Action infoAction
-     * @param Curso $curso
+     * @param int $id
      * @return Response
      *
      * @Route("/info/{id}", name="admin_cursos_info")
      */
-    public function infoAction(Curso $curso)
+    public function infoAction($id)
     {
-        return $this->render('admin/curso/info.html.twig', array('curso' => $curso));
+        $curso = $this->getDoctrine()->getRepository('AppBundle:Curso')->find($id);
+        if (!$curso){
+            $this->createNotFoundException('Nenhum curso cadastrado com ID: ' . $id);
+        }
+        return $this->render('cursos/info.html.twig', array('curso' => $curso));
     }
 
     /**
@@ -52,7 +59,7 @@ class CursoController extends Controller
     public function novoAction(Request $request)
     {
         $curso = new Curso();
-        $form = $this->createForm('AppBundle\Form\CursoType', $curso);
+        $form = $this->createForm(CursoType::class, $curso);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -61,20 +68,24 @@ class CursoController extends Controller
             $this->addFlash('success',"Curso criado");
             return $this->redirectToRoute('admin_cursos_index');
         }
-        return $this->render('admin/curso/novo.html.twig', array('curso' => $curso, 'form' => $form->createView()));
+        return $this->render('cursos/novo.html.twig', array('curso' => $curso, 'form' => $form->createView()));
     }
 
     /**
      * Action editarAction
      * @param Request $request
-     * @param Curso $curso
+     * @param int $id
      * @return RedirectResponse|Response
      *
      * @Route("/editar/{id}", name="admin_cursos_editar")
      */
-    public function editarAction(Request $request, Curso $curso)
+    public function editarAction(Request $request, $id)
     {
-        $editForm = $this->createForm('AppBundle\Form\CursoType', $curso);
+        $curso = $this->getDoctrine()->getRepository('AppBundle:Curso')->find($id);
+        if (!$curso){
+            $this->createNotFoundException('Nenhum curso cadastrado com ID: ' . $id);
+        }
+        $editForm = $this->createForm(CursoType::class, $curso);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
@@ -87,13 +98,17 @@ class CursoController extends Controller
     /**
      * Action excluirAction
      * @param Request $request
-     * @param Curso $curso
+     * @param int $id
      * @return RedirectResponse|Response
      *
      * @Route("/excluir/{id}", name="admin_cursos_excluir")
      */
-    public function excluirAction(Request $request, Curso $curso)
+    public function excluirAction(Request $request, $id)
     {
+        $curso = $this->getDoctrine()->getRepository('AppBundle:Curso')->find($id);
+        if (!$curso){
+            $this->createNotFoundException('Nenhum curso cadastrado com ID: ' . $id);
+        }
         if($request->getMethod() == 'POST'){
             if($request->get('del') == 'Sim'){
                 $em = $this->getDoctrine()->getManager();
@@ -105,4 +120,5 @@ class CursoController extends Controller
         }
         return $this->render('admin/curso/excluir.html.twig', array('curso' => $curso));
     }
+
 }

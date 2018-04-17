@@ -18,6 +18,7 @@ class SetorType extends AbstractType
         $builder
             ->add('nome', TextType::class)
             ->add('imageFile', VichImageType::class, array(
+                'label' => 'Foto',
                 'required' => true,
                 'allow_delete' => false,
                 'image_uri' => false,

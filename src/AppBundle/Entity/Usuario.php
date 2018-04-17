@@ -10,7 +10,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Table(name="usuarios")
  * @ORM\Entity()
- * @UniqueEntity(fields="email", message="E-mail já cadastrado")
  * @UniqueEntity(fields="usuario", message="Usuário já cadastrado")
  */
 class Usuario implements UserInterface, \Serializable
@@ -24,6 +23,8 @@ class Usuario implements UserInterface, \Serializable
     const REP = 'Representante';
 
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
@@ -31,39 +32,46 @@ class Usuario implements UserInterface, \Serializable
     private $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(name="usuario", type="string", length=25, unique=true)
+     *
      * @Assert\NotBlank()
      */
     private $usuario;
 
     /**
+     * @var string
+     *
      * @ORM\Column(name="senha", type="string", length=64)
      */
     private $senha;
 
     /**
-     * @Assert\NotBlank()
+     * @var string
+     *
      * @Assert\Length(min=5, max=4096, minMessage="A senha deve ter pelo menos 5 caracteres")
+     * @Assert\NotBlank()
      */
     private $senhaLimpa;
 
     /**
-     * @ORM\Column(name="email", type="string", length=60, unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Email()
-     */
-    private $email;
-
-    /**
+     * @var string
+     *
      * @ORM\Column(name="tipo", type="string", length=30)
      */
     private $tipo;
 
     /**
+     * @var array
+     *
      * @ORM\Column(name="roles", type="array")
      */
     private $roles;
 
+    /**
+     * Usuario constructor.
+     */
     public function __construct()
     {
         $this->roles = array();
@@ -103,10 +111,12 @@ class Usuario implements UserInterface, \Serializable
 
     /**
      * @param string $usuario
+     * @return Usuario
      */
     public function setUsuario($usuario)
     {
         $this->usuario = $usuario;
+        return $this;
     }
 
     /**
@@ -119,10 +129,12 @@ class Usuario implements UserInterface, \Serializable
 
     /**
      * @param string $senha
+     * @return Usuario
      */
     public function setSenha($senha)
     {
         $this->senha = $senha;
+        return $this;
     }
 
     /**
@@ -135,26 +147,12 @@ class Usuario implements UserInterface, \Serializable
 
     /**
      * @param string $senhaLimpa
+     * @return Usuario
      */
     public function setSenhaLimpa($senhaLimpa)
     {
         $this->senhaLimpa = $senhaLimpa;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param string $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
+        return $this;
     }
 
     /**
@@ -167,10 +165,24 @@ class Usuario implements UserInterface, \Serializable
 
     /**
      * @param string $tipo
+     * @return Usuario
      */
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
+        switch ($tipo){
+            case Usuario::ADMIN:
+                $this->addRole(Usuario::ROLE_SUPER_ADMIN);
+                $this->addRole(Usuario::ROLE_ADMIN);
+                break;
+            case Usuario::PROF:
+                $this->addRole(Usuario::ROLE_ADMIN);
+                break;
+            case Usuario::REP:
+                $this->addRole(Usuario::ROLE_DEFAULT);
+                break;
+        }
+        return $this;
     }
 
     public function serialize()
@@ -179,8 +191,8 @@ class Usuario implements UserInterface, \Serializable
             $this->id,
             $this->usuario,
             $this->senha,
-            $this->email,
-            $this->tipo
+            $this->tipo,
+            $this->roles
         ));
     }
 
@@ -190,8 +202,8 @@ class Usuario implements UserInterface, \Serializable
             $this->id,
             $this->usuario,
             $this->senha,
-            $this->email,
-            $this->tipo
+            $this->tipo,
+            $this->roles
             ) = unserialize($serialized);
     }
 

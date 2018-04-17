@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class TurmaController extends Controller
 {
+
     /**
      * Action indexAction
      * @return Response
@@ -28,19 +29,23 @@ class TurmaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $turmas = $em->getRepository('AppBundle:Turma')->findAll();
-        return $this->render('admin/turma/index.html.twig', array('turmas' => $turmas));
+        return $this->render('turmas/index.html.twig', array('turmas' => $turmas));
     }
 
     /**
      * Action infoAction
-     * @param Turma $turma
+     * @param int $id
      * @return Response
      *
      * @Route("/info/{id}", name="admin_turmas_info")
      */
-    public function infoAction(Turma $turma)
+    public function infoAction($id)
     {
-        return $this->render('turma/show.html.twig', array('turma' => $turma));
+        $turma = $this->getDoctrine()->getRepository('AppBundle:Turma')->find($id);
+        if (!$turma){
+            $this->createNotFoundException("Nenhuma turma cadastrada com ID: $id");
+        }
+        return $this->render('turmas/info.html.twig', array('turma' => $turma));
     }
 
     /**
@@ -62,41 +67,49 @@ class TurmaController extends Controller
             $this->addFlash('success','Turma criada');
             return $this->redirectToRoute('admin_turmas_index');
         }
-        return $this->render('admin/turma/novo.html.twig', array('turma' => $turma, 'form' => $form->createView()));
+        return $this->render('turmas/novo.html.twig', array('turma' => $turma, 'form' => $form->createView()));
     }
 
     /**
      * Action editarAction
      * @param Request $request
-     * @param Turma $turma
+     * @param int $id
      * @return RedirectResponse|Response
      *
      * @Route("/editar/{id}", name="admin_turmas_editar")
      */
-    public function editarAction(Request $request, Turma $turma)
+    public function editarAction(Request $request, $id)
     {
-        $editForm = $this->createForm(TurmaType::class, $turma);
-        $editForm->handleRequest($request);
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        $turma = $this->getDoctrine()->getRepository('AppBundle:Turma')->find($id);
+        if (!$turma){
+            $this->createNotFoundException("Nenhuma turma cadastrada com ID: $id");
+        }
+        $form = $this->createForm(TurmaType::class, $turma);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success','Turma editada');
             return $this->redirectToRoute('admin_turmas_index');
         }
-        return $this->render('admin/turma/editar.html.twig', array('turma' => $turma, 'form' => $editForm->createView()));
+        return $this->render('turmas/editar.html.twig', array('turma' => $turma, 'form' => $form->createView()));
     }
 
     /**
      * Action excluirAction
      * @param Request $request
-     * @param Turma $turma
+     * @param int $id
      * @return RedirectResponse|Response
      *
      * @Route("/excluir/{id}", name="admin_turmas_excluir")
      */
-    public function excluirAction(Request $request, Turma $turma)
+    public function excluirAction(Request $request, $id)
     {
-        if($request->getMethod() == 'POST'){
-            if($request->get('del') == 'Sim'){
+        $turma = $this->getDoctrine()->getRepository('AppBundle:Turma')->find($id);
+        if (!$turma){
+            $this->createNotFoundException("Nenhuma turma cadastrada com ID: $id");
+        }
+        if ($request->getMethod() == 'POST'){
+            if ($request->get('del') == 'Sim'){
                 $em = $this->getDoctrine()->getManager();
                 $em->remove($turma);
                 $em->flush();
@@ -104,6 +117,6 @@ class TurmaController extends Controller
             }
             return $this->redirectToRoute('admin_turmas_index');
         }
-        return $this->render('admin/turma/excluir.html.twig', array('turma' => $turma));
+        return $this->render('turmas/excluir.html.twig', array('turma' => $turma));
     }
 }

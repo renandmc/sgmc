@@ -44,9 +44,9 @@ doctrine:
         auto_mapping: true
 # Doctrine Migrations
 doctrine_migrations:
-    dir_name: "%kernel.root_dir%/DoctrineMigrations"
+    dir_name: "%kernel.root_dir%/../src/AppBundle/Migrations"
     namespace: AppBundle\Migrations
-    table_name: migration_versions
+    table_name: migrations
     name: SGMC Migrations
     organize_migrations: "BY_YEAR_AND_MONTH"
     # Version >=1.2 Possible values are: "BY_YEAR", "BY_YEAR_AND_MONTH", false
@@ -57,14 +57,6 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
-# FOSUserBundle configuration
-#fos_user:
-#    db_driver: orm
-#    firewall_name: main
-#    user_class: AppBundle\Entity\Usuario
-#    from_email:
-#        address: "teste@abc.com"
-#        sender_name: "SGMC - ETEC"
 # VicHUploader configuration
 vich_uploader:
     db_driver: orm
@@ -72,3 +64,36 @@ vich_uploader:
         setor_img:
             uri_prefix: /uploads/setores
             upload_destination: '%kernel.root_dir%/../web/uploads/setores'
+            namer: vich_uploader.namer_uniqid
+        equip_img:
+            uri_prefix: /uploads/equip
+            upload_destination: '%kernel.root_dir%/../web/uploads/equip'
+            namer: vich_uploader.namer_uniqid
+# Assetic configuration
+assetic:
+    debug: '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~
+# LiipImagine configuration
+liip_imagine:
+    # configure resolvers
+    resolvers:
+        # setup the default resolver
+        default:
+            # use the default web path
+            web_path: ~
+    # your filter sets are defined here
+    filter_sets:
+        # use the default cache config
+        cache: ~
+        # name of filter set
+        app_thumb:
+            # adjust quality to 75%
+            quality: 75
+            # list transformations to apply
+            filters:
+                # thumbnail
+                thumbnail: { size: [120, 90], mode: outbound }
+                # 2px border black
+                backgroud: { size: [124, 94], position: center, color: '#000000' }

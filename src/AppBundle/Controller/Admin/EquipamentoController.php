@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class EquipamentoController extends Controller
 {
+
     /**
      * Action indexAction
      * @return Response
@@ -28,7 +29,23 @@ class EquipamentoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $equipamentos = $em->getRepository('AppBundle:Equipamento')->findAll();
-        return $this->render('admin/equipamento/index.html.twig', array('equipamentos' => $equipamentos));
+        return $this->render('equipamentos/index.html.twig', array('equipamentos' => $equipamentos));
+    }
+
+    /**
+     * Action infoAction
+     * @param int $id
+     * @return Response
+     *
+     * @Route("/info/{id}", name="admin_equipamentos_info")
+     */
+    public function infoAction($id)
+    {
+        $equipamento = $this->getDoctrine()->getRepository('AppBundle:Equipamento')->find($id);
+        if(!$equipamento){
+            $this->createNotFoundException("Nenhum equipamento cadastrado com ID: $id");
+        }
+        return $this->render('equipamentos/info.html.twig', array('equipamento' => $equipamento));
     }
 
     /**
@@ -49,50 +66,46 @@ class EquipamentoController extends Controller
             $em->flush();
             return $this->redirectToRoute('admin_equipamentos_info', array('id' => $equipamento->getId()));
         }
-        return $this->render('admin/equipamento/novo.html.twig', array('equipamento' => $equipamento, 'form' => $form->createView()));
-    }
-
-    /**
-     * Action infoAction
-     * @param Equipamento $equipamento
-     * @return Response
-     *
-     * @Route("/info/{id}", name="admin_equipamentos_info")
-     */
-    public function infoAction(Equipamento $equipamento)
-    {
-        return $this->render('admin/equipamento/info.html.twig', array('equipamento' => $equipamento));
+        return $this->render('equipamentos/novo.html.twig', array('equipamento' => $equipamento, 'form' => $form->createView()));
     }
 
     /**
      * Action editarAction
      * @param Request $request
-     * @param Equipamento $equipamento
+     * @param int $id
      * @return RedirectResponse|Response
      *
      * @Route("/editar/{id}", name="admin_equipamentos_editar")
      */
-    public function editarAction(Request $request, Equipamento $equipamento)
+    public function editarAction(Request $request, $id)
     {
-        $editForm = $this->createForm(EquipamentoType::class, $equipamento);
-        $editForm->handleRequest($request);
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        $equipamento = $this->getDoctrine()->getRepository('AppBundle:Equipamento')->find($id);
+        if(!$equipamento){
+            $this->createNotFoundException("Nenhum equipamento cadastrado com ID: $id");
+        }
+        $form = $this->createForm(EquipamentoType::class, $equipamento);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('admin_equipamentos_editar', array('id' => $equipamento->getId()));
         }
-        return $this->render('admin/equipamento/editar.html.twig', array('equipamento' => $equipamento, 'form' => $editForm->createView()));
+        return $this->render('equipamentos/editar.html.twig', array('equipamento' => $equipamento, 'form' => $form->createView()));
     }
 
     /**
      * Action excluirAction
      * @param Request $request
-     * @param Equipamento $equipamento
+     * @param int $id
      * @return RedirectResponse|Response
      *
      * @Route("/excluir/{id}", name="admin_equipamentos_excluir")
      */
-    public function excluirAction(Request $request, Equipamento $equipamento)
+    public function excluirAction(Request $request, $id)
     {
+        $equipamento = $this->getDoctrine()->getRepository('AppBundle:Equipamento')->find($id);
+        if(!$equipamento){
+            $this->createNotFoundException("Nenhum equipamento registrado com ID: $id");
+        }
         if($request->getMethod() == 'POST'){
             if($request->get('del') == 'Sim'){
                 $em = $this->getDoctrine()->getManager();
@@ -101,6 +114,7 @@ class EquipamentoController extends Controller
             }
             return $this->redirectToRoute('admin_equipamentos_index');
         }
-        return $this->render('admin/equipamento/excluir.html.twig', array('equipamento' => $equipamento));
+        return $this->render('equipamentos/excluir.html.twig', array('equipamento' => $equipamento));
     }
+
 }

@@ -54,14 +54,14 @@ class Ordem
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="data_fechado", type="datetime")
+     * @ORM\Column(name="data_fechado", type="datetime", nullable=true)
      */
     private $dataFechado;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="parecer_tecnico", type="string", length=200)
+     * @ORM\Column(name="parecer_tecnico", type="string", nullable=true)
      */
     private $parecerTecnico;
 
@@ -76,6 +76,7 @@ class Ordem
      * @var Usuario
      *
      * @Gedmo\Blameable(on="create")
+     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
      * @ORM\JoinColumn(name="criado_por", referencedColumnName="id")
      */
@@ -85,10 +86,11 @@ class Ordem
      * @var Usuario
      *
      * @Gedmo\Blameable(on="change", field={"status"})
+     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
-     * @ORM\JoinColumn(name="fechado_por", referencedColumnName="id")
+     * @ORM\JoinColumn(name="alterado_por", referencedColumnName="id")
      */
-    private $fechadoPor;
+    private $alteradoPor;
 
     /**
      * Ordem constructor.
@@ -96,7 +98,6 @@ class Ordem
     public function __construct()
     {
         $this->dataAberto = new DateTime('now');
-        $this->equipamento->setStatus(Equipamento::STATUS_MANUTENCAO);
         $this->status = self::STATUS_MANUTENCAO;
     }
 
