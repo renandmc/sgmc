@@ -22,4 +22,12 @@ class DefaultController extends Controller
     {
         return $this->render('default/index.html.twig', array());
     }
+
+    /**
+     * @Route("/sobre", name="sobre")
+     */
+    public function sobreAction()
+    {
+        return $this->render('default/sobre.html.twig', array());
+    }
 }
