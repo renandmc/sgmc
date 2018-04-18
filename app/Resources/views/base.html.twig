@@ -9,13 +9,9 @@
             <link rel="icon" type="image/x-icon" href="{{ asset('img/logo.png') }}"/>
         {% endblock %}
         {% block css %}
-            {% stylesheets
-                'bundles/app/bootstrap/css/bootstrap.css'
-                'bundles/app/css/sticky-footer-navbar.css'
-                'bundles/app/css/ajustes.css'
-                filter='cssrewrite' output='css/main.css' %}
-                <link rel="stylesheet" href="{{ asset_url }}">
-            {% endstylesheets %}
+            <link rel="stylesheet" href="{{ asset('bundles/app/bootstrap/css/bootstrap.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/app/css/sticky-footer-navbar.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/app/css/ajustes.css') }}">
         {% endblock %}
     </head>
     <body>
@@ -83,12 +79,8 @@
                 </footer>
             {% endblock %}
             {% block js %}
-                {% javascripts
-                    '@AppBundle/Resources/public/js/jquery.min.js'
-                    '@AppBundle/Resources/public/js/bootstrap.min.js'
-                    output='js/main.js' %}
-                    <script src="{{ asset_url }}"></script>
-                {% endjavascripts %}
+                <script src="{{ asset('bundles/app/js/jquery.js') }}"></script>
+                <script src="{{ asset('bundles/app/js/bootstrap.js') }}"></script>
             {% endblock %}
         {% endblock %}
     </body>
