@@ -59,8 +59,7 @@
         ],
         "scripts": {
           "compile": [
-            "app/console assets:install",
-            "app/console assetic:dump"
+            "php app/console assetic:dump --env=prod --no-debug"
           ]
         }
     },
