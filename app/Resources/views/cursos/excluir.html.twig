@@ -9,7 +9,6 @@
     <hr>
     <h3>ID: {{ curso.id }}</h3>
     <h3>Nome: {{ curso.nome }}</h3>
-    <h3>Descrição: {{ curso.descricao }}</h3>
     <hr>
     <h2>Deseja excluir o curso?</h2>
     <form action="{{ path('admin_cursos_excluir', {'id': curso.id}) }}" method="post">

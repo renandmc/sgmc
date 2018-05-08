@@ -8,8 +8,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Table(name="usuarios")
+ * Class Usuario
+ * @package AppBundle\Entity
+ *
  * @ORM\Entity()
+ * @ORM\Table(name="usuarios")
  * @UniqueEntity(fields="usuario", message="Usuário já cadastrado")
  */
 class Usuario implements UserInterface, \Serializable
@@ -25,9 +28,9 @@ class Usuario implements UserInterface, \Serializable
     /**
      * @var int
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Id
      */
     private $id;
 
@@ -75,6 +78,14 @@ class Usuario implements UserInterface, \Serializable
     public function __construct()
     {
         $this->roles = array();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return "$this->usuario";
     }
 
     /**
@@ -170,41 +181,22 @@ class Usuario implements UserInterface, \Serializable
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
-        switch ($tipo){
-            case Usuario::ADMIN:
-                $this->addRole(Usuario::ROLE_SUPER_ADMIN);
-                $this->addRole(Usuario::ROLE_ADMIN);
-                break;
-            case Usuario::PROF:
-                $this->addRole(Usuario::ROLE_ADMIN);
-                break;
-            case Usuario::REP:
-                $this->addRole(Usuario::ROLE_DEFAULT);
-                break;
+        if ($tipo == Usuario::ADMIN) {
+            $this->addRole(Usuario::ROLE_SUPER_ADMIN);
+        } elseif ($tipo == Usuario::PROF) {
+            $this->addRole(Usuario::ROLE_ADMIN);
         }
         return $this;
     }
 
     public function serialize()
     {
-        return serialize(array(
-            $this->id,
-            $this->usuario,
-            $this->senha,
-            $this->tipo,
-            $this->roles
-        ));
+        return serialize(array($this->id, $this->usuario, $this->senha, $this->tipo, $this->roles));
     }
 
     public function unserialize($serialized)
     {
-        list(
-            $this->id,
-            $this->usuario,
-            $this->senha,
-            $this->tipo,
-            $this->roles
-            ) = unserialize($serialized);
+        list($this->id, $this->usuario, $this->senha, $this->tipo, $this->roles) = unserialize($serialized);
     }
 
     public function eraseCredentials()
@@ -289,6 +281,24 @@ class Usuario implements UserInterface, \Serializable
     public function isSuperAdmin()
     {
         return $this->hasRole(static::ROLE_SUPER_ADMIN);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRepresentante()
+    {
+        return $this->tipo == static::REP;
+    }
+
+    public function isProfessor()
+    {
+        return $this->tipo == static::PROF;
+    }
+
+    public function isAdministrador()
+    {
+        return $this->tipo == static::ADMIN;
     }
 
 }

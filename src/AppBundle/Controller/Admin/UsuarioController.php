@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\Usuario;
 use AppBundle\Form\UsuarioType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,10 +25,12 @@ class UsuarioController extends Controller
      *
      * @Route("/", name="admin_usuarios_index")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $usuarios = $this->getDoctrine()->getRepository('AppBundle:Usuario')->findAll();
-        return $this->render('usuarios/index.html.twig', array('usuarios' => $usuarios));
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($usuarios,$request->query->get('pag',1),5);
+        return $this->render('usuarios/index.html.twig', array('usuarios' => $pagination));
     }
 
     /**

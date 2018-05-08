@@ -45,20 +45,6 @@ class Ordem
     private $descricaoDefeito;
 
     /**
-     * @var DateTime
-     *
-     * @ORM\Column(name="data_aberto", type="datetime")
-     */
-    private $dataAberto;
-
-    /**
-     * @var DateTime
-     *
-     * @ORM\Column(name="data_fechado", type="datetime", nullable=true)
-     */
-    private $dataFechado;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="parecer_tecnico", type="string", nullable=true)
@@ -73,6 +59,20 @@ class Ordem
     private $status;
 
     /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="data_aberto", type="datetime")
+     */
+    private $dataAberto;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="data_fechado", type="datetime", nullable=true)
+     */
+    private $dataFechado;
+
+    /**
      * @var Usuario
      *
      * @Gedmo\Blameable(on="create")
@@ -81,16 +81,6 @@ class Ordem
      * @ORM\JoinColumn(name="criado_por", referencedColumnName="id")
      */
     private $criadoPor;
-
-    /**
-     * @var Usuario
-     *
-     * @Gedmo\Blameable(on="change", field={"status"})
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
-     * @ORM\JoinColumn(name="alterado_por", referencedColumnName="id")
-     */
-    private $alteradoPor;
 
     /**
      * Ordem constructor.
@@ -235,14 +225,6 @@ class Ordem
     }
 
     /**
-     * @return Usuario
-     */
-    public function getFechadoPor()
-    {
-        return $this->fechadoPor;
-    }
-
-    /**
      * @return Ordem
      */
     public function fechaOrdem()
@@ -252,4 +234,5 @@ class Ordem
         $this->dataFechado = new DateTime('now');
         return $this;
     }
+
 }

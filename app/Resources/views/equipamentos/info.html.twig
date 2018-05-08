@@ -4,14 +4,20 @@
         <a href="{{ path('admin_equipamentos_index') }}" class="btn btn-default">
             <span class="glyphicon glyphicon-arrow-left"></span>
         </a>
-        Info equipamento
+        Informações equipamento
     </h1>
     <hr>
-    <h3>Número: {{ equipamento.numero }}</h3>
-    <h3>Tipo equipamento: {{ equipamento.tipoEquipamento }}</h3>
-    <h3>Marca: {{ equipamento.marca }}</h3>
-    <h3>Modelo: {{ equipamento.modelo }}</h3>
-    <h3>Descrição: {{ equipamento.descricao }}</h3>
-    <a href="{{ path('admin_equipamentos_editar', { 'id': equipamento.id }) }}" class="btn btn-warning">Editar</a>
-    <a href="{{ path('admin_equipamentos_excluir', { 'id': equipamento.id }) }}" class="btn btn-danger">Excluir</a>
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            <h3>Setor: {{ equipamento.setor }}</h3>
+            <h3>Equipamento: {{ equipamento }}</h3>
+            <h3>Situação: {{ equipamento.status }}</h3>
+            <h3>Descrição: {{ equipamento.descricao }}</h3>
+            <a href="{{ path('admin_equipamentos_editar', { 'id': equipamento.id }) }}" class="btn btn-warning">Editar</a>
+            <a href="{{ path('admin_equipamentos_excluir', { 'id': equipamento.id }) }}" class="btn btn-danger">Excluir</a>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <img src="{{ vich_uploader_asset(equipamento, 'imageFile') }}" alt="{{ equipamento.nome }}" class="img-responsive foto">
+        </div>
+    </div>
 {% endblock %}

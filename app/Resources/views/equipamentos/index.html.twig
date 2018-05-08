@@ -7,19 +7,21 @@
         <table class="table table-responsive">
             <tr>
                 <th>ID</th>
-                <th>Número</th>
-                <th>Equipamento</th>
                 <th>Setor</th>
+                <th>Nome</th>
+                <th>Equipamento</th>
                 <th>Foto</th>
+                <th>Status</th>
                 <th>Opções</th>
             </tr>
             {% for equipamento in equipamentos %}
                 <tr>
                     <td>{{ equipamento.id }}</td>
-                    <td>{{ equipamento.numero }}</td>
-                    <td>{{ equipamento }}</td>
                     <td>{{ equipamento.setor }}</td>
+                    <td>{{ equipamento.nome }}</td>
+                    <td>{{ equipamento }}</td>
                     <td><img src="{{ vich_uploader_asset(equipamento, 'imageFile') }}" alt="{{ equipamento }}" class="img-responsive foto-table"></td>
+                    <td>{{ equipamento.status }}</td>
                     <td>
                         <a href="{{ path('admin_equipamentos_info', { 'id': equipamento.id }) }}" class="btn btn-sm btn-default">Info</a>
                         <a href="{{ path('admin_equipamentos_editar', { 'id': equipamento.id }) }}" class="btn btn-sm btn-warning">Editar</a>

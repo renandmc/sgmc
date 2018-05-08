@@ -6,13 +6,11 @@
     {% if cursos|length > 0 %}
         <table class="table table-responsive">
             <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Opções</th>
+                <th class="col-xs-9">Nome</th>
+                <th class="col-xs-3">Opções</th>
             </tr>
             {% for curso in cursos %}
                 <tr>
-                    <td>{{ curso.id }}</td>
                     <td>{{ curso.nome }}</td>
                     <td>
                         <a href="{{ path('admin_cursos_info', { 'id': curso.id }) }}" class="btn btn-sm btn-default">Info</a>
@@ -22,6 +20,7 @@
                 </tr>
             {% endfor %}
         </table>
+        {{ knp_pagination_render(cursos) }}
     {% else %}
         <h2>Nenhum curso cadastrado</h2>
     {% endif %}

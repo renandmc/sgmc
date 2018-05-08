@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\Curso;
 use AppBundle\Form\CursoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,20 +20,25 @@ class CursoController extends Controller
 {
 
     /**
-     * Action indexAction
+     * Action indexAction - Lista de todos os cursos
      * @return Response
      *
      * @Route("/", name="admin_cursos_index")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $cursos = $em->getRepository('AppBundle:Curso')->findAll();
-        return $this->render('cursos/index.html.twig', array('cursos' => $cursos));
+        // busca os cursos no banco
+        $cursos = $this->getDoctrine()->getRepository('AppBundle:Curso')->findAll();
+        // carrega o paginador
+        $paginator = $this->get('knp_paginator');
+        // faz a paginação com os cursos, utilizando limite de 5 por página
+        $pagination = $paginator->paginate($cursos,$request->query->get('pag', 1),5);
+        // carrega a página
+        return $this->render('cursos/index.html.twig', array('cursos' => $pagination));
     }
 
     /**
-     * Action infoAction
+     * Action infoAction - Informações sobre um curso específico
      * @param int $id
      * @return Response
      *
@@ -50,7 +54,7 @@ class CursoController extends Controller
     }
 
     /**
-     * Action novoAction
+     * Action novoAction - Criação de um novo curso
      * @param Request $request
      * @return RedirectResponse|Response
      *
@@ -72,7 +76,7 @@ class CursoController extends Controller
     }
 
     /**
-     * Action editarAction
+     * Action editarAction - Edição de um curso
      * @param Request $request
      * @param int $id
      * @return RedirectResponse|Response
@@ -92,11 +96,11 @@ class CursoController extends Controller
             $this->addFlash('success','Curso editado');
             return $this->redirectToRoute('admin_cursos_index');
         }
-        return $this->render('admin/curso/editar.html.twig', array('curso' => $curso, 'form' => $editForm->createView()));
+        return $this->render('cursos/editar.html.twig', array('curso' => $curso, 'form' => $editForm->createView()));
     }
 
     /**
-     * Action excluirAction
+     * Action excluirAction - Exclusão de um curso
      * @param Request $request
      * @param int $id
      * @return RedirectResponse|Response
@@ -118,7 +122,7 @@ class CursoController extends Controller
             }
             return $this->redirectToRoute('admin_cursos_index');
         }
-        return $this->render('admin/curso/excluir.html.twig', array('curso' => $curso));
+        return $this->render('cursos/excluir.html.twig', array('curso' => $curso));
     }
 
 }

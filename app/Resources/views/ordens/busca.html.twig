@@ -7,39 +7,47 @@
         Nova ordem de serviço
     </h1>
     <h2>Setores</h2>
-    <div role="tabpanel">
-        <ul class="nav nav-tabs" role="tablist">
-            {% for setor in setores %}
-                <li role="presentation">
-                    <a href="#{{ setor.id }}" aria-controls="{{ setor.id }}" role="tab" data-toggle="tab">
-                        <img src="{{ vich_uploader_asset(setor, 'imageFile') }}" class="img-responsive foto-table">
-                        {{ setor.nome }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-        <div class="tab-content">
-            {% for setor in setores %}
-                <div role="tabpanel" class="tab-pane" id="{{ setor.id }}">
-                    <h2>Equipamentos</h2>
-                    <table class="table table-responsive">
-                        <tr>
-                            <th>Foto</th>
-                            <th>Número</th>
-                            <th>Equipamento</th>
-                            <th>Opções</th>
-                        </tr>
-                        {% for equipamento in setor.equipamentos %}
-                            <tr>
-                                <td><img src="{{ vich_uploader_asset(equipamento, 'imageFile') }}" class="img-responsive foto-table"></td>
-                                <td>{{ equipamento.numero }}</td>
-                                <td>{{ equipamento }}</td>
-                                <td><a href="{{ path('admin_ordens_novo', { 'id' : equipamento.id }) }}" class="btn btn-sm btn-default">Nova ordem</a></td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-            {% endfor %}
+    {% if setores|length > 0 %}
+        <div role="tabpanel">
+            <ul class="nav nav-tabs" role="tablist">
+                {% for setor in setores %}
+                    <li role="presentation">
+                        <a href="#{{ setor.id }}" aria-controls="{{ setor.id }}" role="tab" data-toggle="tab">
+                            <img src="{{ vich_uploader_asset(setor, 'imageFile') }}" class="img-responsive foto-table">
+                            {{ setor.nome }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="tab-content">
+                {% for setor in setores %}
+                    <div role="tabpanel" class="tab-pane" id="{{ setor.id }}">
+                        <h2>Equipamentos</h2>
+                        {% if setor.equipamentos|length > 0 %}
+                            <table class="table table-responsive">
+                                <tr>
+                                    <th>Foto</th>
+                                    <th>Nome</th>
+                                    <th>Equipamento</th>
+                                    <th>Opções</th>
+                                </tr>
+                                {% for equipamento in setor.equipamentos %}
+                                    <tr>
+                                        <td><img src="{{ vich_uploader_asset(equipamento, 'imageFile') }}" class="img-responsive foto-table"></td>
+                                        <td>{{ equipamento.nome }}</td>
+                                        <td>{{ equipamento }}</td>
+                                        <td><a href="{{ path('admin_ordens_novo', { 'id' : equipamento.id }) }}" class="btn btn-sm btn-default">Nova ordem</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        {% else %}
+                            <h3>Nenhum equipamento cadastrado para o setor</h3>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-    </div>
+    {% else %}
+        <h3>Nenhum setor cadastrado</h3>
+    {% endif %}
 {% endblock %}

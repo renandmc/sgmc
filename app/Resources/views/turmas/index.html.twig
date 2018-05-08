@@ -6,18 +6,16 @@
     {% if turmas|length > 0 %}
         <table class="table table-responsive">
             <tr>
-                <th>ID</th>
-                <th>Módulo</th>
-                <th>Turno</th>
-                <th>Curso</th>
-                <th>Opções</th>
+                <th class="col-xs-5">Curso</th>
+                <th class="col-xs-2">Módulo</th>
+                <th class="col-xs-2">Turno</th>
+                <th class="col-xs-3">Opções</th>
             </tr>
             {% for turma in turmas %}
                 <tr>
-                    <td>{{ turma.id }}</td>
+                    <td>{{ turma.curso }}</td>
                     <td>{{ turma.modulo }}</td>
                     <td>{{ turma.turno }}</td>
-                    <td>{{ turma.curso.nome }}</td>
                     <td>
                         <a href="{{ path('admin_turmas_info', { 'id': turma.id }) }}" class="btn btn-sm btn-default">Info</a>
                         <a href="{{ path('admin_turmas_editar', { 'id': turma.id }) }}" class="btn btn-sm btn-warning">Editar</a>

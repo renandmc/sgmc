@@ -19,6 +19,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Equipamento
 {
+
     const STATUS_MANUTENCAO = 'Em manutenção';
     const STATUS_OK = 'Em funcionamento';
 
@@ -32,11 +33,11 @@ class Equipamento
     private $id;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="num_maquina", type="integer")
+     * @ORM\Column(name="nome", type="string", length=100)
      */
-    private $numero;
+    private $nome;
 
     /**
      * @var string
@@ -67,6 +68,13 @@ class Equipamento
     private $descricao;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=50)
+     */
+    private $status;
+
+    /**
      * @var Setor
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Setor", inversedBy="equipamentos")
@@ -80,13 +88,6 @@ class Equipamento
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ordem", mappedBy="equipamento")
      */
     private $ordens;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="status", type="string", length=50)
-     */
-    private $status;
 
     /**
      * @var File
@@ -136,20 +137,20 @@ class Equipamento
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getNumero()
+    public function getNome()
     {
-        return $this->numero;
+        return $this->nome;
     }
 
     /**
-     * @param int $numero
+     * @param string $nome
      * @return Equipamento
      */
-    public function setNumero($numero)
+    public function setNome($nome)
     {
-        $this->numero = $numero;
+        $this->nome = $nome;
         return $this;
     }
 
@@ -226,6 +227,24 @@ class Equipamento
     }
 
     /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     * @return Equipamento
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
      * @return Setor
      */
     public function getSetor()
@@ -267,32 +286,6 @@ class Equipamento
     public function removeOrdem(Ordem $ordem)
     {
         $this->ordens->removeElement($ordem);
-    }
-
-    /**
-     * @return string
-     */
-    public function getEquipamento()
-    {
-        return "$this->tipoEquipamento $this->marca $this->modelo";
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param string $status
-     * @return Equipamento
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-        return $this;
     }
 
     /**

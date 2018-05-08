@@ -17,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Curso
 {
+
     /**
      * @var int
      *
@@ -108,4 +109,5 @@ class Curso
     {
         $this->turmas->removeElement($turma);
     }
+
 }

@@ -12,8 +12,10 @@
     <h3>Data aberto: {{ ordem.dataAberto|date('d/m/Y h:i:s') }}</h3>
     <h3>Descrição: {{ ordem.descricaoDefeito }}</h3>
     <h3>Status: {{ ordem.status }}</h3>
-    <a href="#" class="btn btn-default">Parecer técnico</a>
-    <a href="{{ path('admin_ordens_fecha', { 'id' : ordem.id }) }}" class="btn btn-default">Fechar ordem</a>
     <a href="{{ path('admin_ordens_editar', { 'id': ordem.id }) }}" class="btn btn-warning">Editar</a>
-    <a href="{{ path('admin_ordens_excluir', { 'id': ordem.id }) }}" class="btn btn-danger">Excluir</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="#" class="btn btn-default">Parecer técnico</a>
+        <a href="{{ path('admin_ordens_fechar', { 'id' : ordem.id }) }}" class="btn btn-default">Fechar ordem</a>
+        <a href="{{ path('admin_ordens_excluir', { 'id': ordem.id }) }}" class="btn btn-danger">Excluir</a>
+    {% endif %}
 {% endblock %}

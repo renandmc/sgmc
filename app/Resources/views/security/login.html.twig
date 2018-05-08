@@ -14,6 +14,8 @@
         <input type="text" id="username" name="_username" value="{{ ultimo_usuario }}" class="form-control" required autofocus>
         <label for="password" class="sr-only">Senha</label>
         <input type="password" id="password" name="_password" class="form-control" required>
+        <input type="checkbox" id="remember_me" name="_remember_me" checked>
+        <label for="remember_me">Mantenha-me conectado</label>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         <input type="submit" id="_submit" name="_submit" value="Login" class="btn btn-lg btn-primary btn-block">
         </form>

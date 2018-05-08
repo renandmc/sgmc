@@ -25,11 +25,12 @@ class SetorController extends Controller
      *
      * @Route("/", name="admin_setores_index")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $setores = $em->getRepository('AppBundle:Setor')->findAll();
-        return $this->render('setores/index.html.twig', array('setores' => $setores));
+        $setores = $this->getDoctrine()->getRepository('AppBundle:Setor')->findAll();
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($setores, $request->query->get('pag',1),5);
+        return $this->render('setores/index.html.twig', array('setores' => $pagination));
     }
 
     /**

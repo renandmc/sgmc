@@ -32,7 +32,7 @@
                             <ul class="nav navbar-nav">
                                 <li><a href="{{ path('home') }}"><span class="glyphicon glyphicon-home"></span> Página inicial</a></li>
                                 <li><a href="{{ path('sobre') }}"><span class="glyphicon glyphicon-info-sign"></span> Sobre</a></li>
-                                {% if is_granted('ROLE_USER') %}
+                                {% if app.user %}
                                     <li><a href="{{ path('admin_home') }}"><span class="glyphicon glyphicon-lock"></span> Admin</a></li>
                                 {% endif %}
                             </ul>

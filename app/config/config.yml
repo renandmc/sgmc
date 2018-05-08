@@ -6,11 +6,9 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: pt_BR
-    setor_fotos: '%kernel.root_dir%/../web/uploads/setores'
 framework:
     #esi: ~
-    translator: ~
-    #translator: { fallbacks: ['%locale%'] }
+    translator: { fallbacks: ['%locale%'] }
     secret: '%secret%'
     router:
         resource: '%kernel.root_dir%/config/routing.yml'
@@ -91,3 +89,35 @@ liip_imagine:
                 thumbnail: { size: [120, 90], mode: outbound }
                 # 2px border black
                 backgroud: { size: [124, 94], position: center, color: '#000000' }
+# KnpPaginator configuration
+knp_paginator:
+    page_range: 5                       # default page range
+    default_options:
+        page_name: pag                  # page query parameter name
+        #sort_field_name: sort           # sort field query parameter name
+        #sort_direction_name: direction  # sort direction query parameter name
+        #distinct: true                  # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig   # sliding pagination controls template
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig                       # sort link template
+# KnpMenu configuration
+knp_menu:
+    twig:
+        template: KnpMenuBundle::menu.html.twig
+# StofDoctrineExtensions configuration
+stof_doctrine_extensions:
+    default_locale: '%locale%'
+    # Only used if you activated the Uploadable extension
+    uploadable:
+        # Default file path: This is one of the three ways you can configure the path for the Uploadable extension
+        default_file_path: "%kernel.root_dir%/../web/uploads"
+        # Mime type guesser class: Optional. By default, we provide an adapter for the one present in the HttpFoundation component of Symfony
+        mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
+        # Default file info class implementing FileInfoInterface: Optional. By default we provide a class which is prepared to receive an UploadedFile instance.
+        default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
+    orm:
+        default:
+            blameable: true
+# MopaBootstrap configuration
+mopa_bootstrap:
+    menu: ~

@@ -4,7 +4,6 @@ namespace AppBundle\Form;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,7 +29,7 @@ class EquipamentoType extends AbstractType
                 'image_uri' => false,
                 'download_uri' => false
             ))
-            ->add('numero', IntegerType::class)
+            ->add('nome', TextType::class)
             ->add('tipoEquipamento', TextType::class)
             ->add('marca', TextType::class)
             ->add('modelo', TextType::class)

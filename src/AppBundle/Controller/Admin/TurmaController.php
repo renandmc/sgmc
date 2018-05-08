@@ -25,11 +25,12 @@ class TurmaController extends Controller
      *
      * @Route("/", name="admin_turmas_index")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $turmas = $em->getRepository('AppBundle:Turma')->findAll();
-        return $this->render('turmas/index.html.twig', array('turmas' => $turmas));
+        $turmas = $this->getDoctrine()->getRepository('AppBundle:Turma')->findAll();
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($turmas,$request->query->get('pag',1),5);
+        return $this->render('turmas/index.html.twig', array('turmas' => $pagination));
     }
 
     /**

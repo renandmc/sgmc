@@ -2,10 +2,11 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Entity\Equipamento;
 use AppBundle\Entity\Ordem;
+use AppBundle\Entity\Setor;
 use AppBundle\Form\OrdemType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,10 +27,16 @@ class OrdemController extends Controller
      *
      * @Route("/", name="admin_ordens_index")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $ordens = $this->getDoctrine()->getRepository('AppBundle:Ordem')->findAll();
-        return $this->render('ordens/index.html.twig', array('ordens' => $ordens));
+        if ($this->getUser()->isRepresentante()){
+            $ordens = $this->getDoctrine()->getRepository(Ordem::class)->findBy(array("criadoPor" => $this->getUser()));
+        }else{
+            $ordens = $this->getDoctrine()->getRepository(Ordem::class)->findAll();
+        }
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($ordens,$request->query->get('pag',1),5);
+        return $this->render('ordens/index.html.twig', array('ordens' => $pagination));
     }
 
     /**
@@ -41,7 +48,7 @@ class OrdemController extends Controller
      */
     public function infoAction($id)
     {
-        $ordem = $this->getDoctrine()->getRepository('AppBundle:Ordem')->find($id);
+        $ordem = $this->getDoctrine()->getRepository(Ordem::class)->find($id);
         if(!$ordem){
             $this->createNotFoundException("Nenhuma ordem cadastrada com ID: $id");
         }
@@ -57,7 +64,7 @@ class OrdemController extends Controller
     public function buscarEquipamentoAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $setores = $em->getRepository('AppBundle:Setor')->findAll();
+        $setores = $em->getRepository(Setor::class)->findAll();
         return $this->render('ordens/busca.html.twig', array('setores' => $setores));
     }
 
@@ -71,7 +78,7 @@ class OrdemController extends Controller
      */
     public function novoAction(Request $request, $id)
     {
-        $equipamento = $this->getDoctrine()->getRepository('AppBundle:Equipamento')->find($id);
+        $equipamento = $this->getDoctrine()->getRepository(Equipamento::class)->find($id);
         $ordem = new Ordem();
         $form = $this->createForm(OrdemType::class, $ordem);
         $form->handleRequest($request);
@@ -103,7 +110,7 @@ class OrdemController extends Controller
             $this->addFlash('success', 'Ordem editada');
             return $this->redirectToRoute('admin_ordens_index');
         }
-        return $this->render('ordens/editar.html.twig', array('ordem' => $ordem, 'form' => $form));
+        return $this->render('ordens/editar.html.twig', array('ordem' => $ordem, 'form' => $form->createView()));
     }
 
     /**

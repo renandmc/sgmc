@@ -17,10 +17,12 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
-            new Liip\ImagineBundle\LiipImagineBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
-            //new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            //new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
+            new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
+            // APP
             new AppBundle\AppBundle(),
         );
 

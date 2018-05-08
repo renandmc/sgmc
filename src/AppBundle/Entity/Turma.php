@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use function date;
+
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 

@@ -20,20 +20,21 @@ class EquipamentoController extends Controller
 {
 
     /**
-     * Action indexAction
+     * Action indexAction - Listagem dos equipamentos
      * @return Response
      *
      * @Route("/", name="admin_equipamentos_index")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $equipamentos = $em->getRepository('AppBundle:Equipamento')->findAll();
-        return $this->render('equipamentos/index.html.twig', array('equipamentos' => $equipamentos));
+        $equipamentos = $this->getDoctrine()->getRepository('AppBundle:Equipamento')->findAll();
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($equipamentos,$request->query->get('pag',1),5);
+        return $this->render('equipamentos/index.html.twig', array('equipamentos' => $pagination));
     }
 
     /**
-     * Action infoAction
+     * Action infoAction - Informação sobre um equipamento
      * @param int $id
      * @return Response
      *
@@ -49,7 +50,7 @@ class EquipamentoController extends Controller
     }
 
     /**
-     * Action novoAction
+     * Action novoAction - Criação de novo equipamento
      * @param Request $request
      * @return RedirectResponse|Response
      *
@@ -70,7 +71,7 @@ class EquipamentoController extends Controller
     }
 
     /**
-     * Action editarAction
+     * Action editarAction - Edição de equipamento
      * @param Request $request
      * @param int $id
      * @return RedirectResponse|Response
@@ -87,13 +88,13 @@ class EquipamentoController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('admin_equipamentos_editar', array('id' => $equipamento->getId()));
+            return $this->redirectToRoute('admin_equipamentos_info', array('id' => $equipamento->getId()));
         }
         return $this->render('equipamentos/editar.html.twig', array('equipamento' => $equipamento, 'form' => $form->createView()));
     }
 
     /**
-     * Action excluirAction
+     * Action excluirAction - Exclusão de um equipamento
      * @param Request $request
      * @param int $id
      * @return RedirectResponse|Response

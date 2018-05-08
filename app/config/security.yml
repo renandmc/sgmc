@@ -8,6 +8,9 @@ security:
             entity:
                 class: AppBundle:Usuario
                 property: usuario
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -21,3 +24,19 @@ security:
                 login_path: login
                 check_path: login
                 csrf_token_generator: security.csrf.token_manager
+                default_target_path: admin_home
+                always_use_default_target_path: true
+            remember_me:
+                secret: '%secret%'
+                lifetime: 604800
+                path: /
+    access_control:
+        - { path: ^/admin, roles: ROLE_USER }
+        - { path: ^/admin/ordens, roles: ROLE_USER }
+        - { path: ^/admin/ordens/excluir, roles: ROLE_ADMIN }
+        - { path: ^/admin/ordens/fechar, roles: ROLE_ADMIN }
+        - { path: ^/admin/cursos, roles: ROLE_ADMIN }
+        - { path: ^/admin/turmas, roles: ROLE_ADMIN }
+        - { path: ^/admin/setores, roles: ROLE_ADMIN }
+        - { path: ^/admin/equipamentos, roles: ROLE_ADMIN }
+        - { path: ^/admin/usuarios, roles: ROLE_ADMIN }
