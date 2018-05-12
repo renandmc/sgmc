@@ -1,0 +1,21 @@
+{% extends 'admin/index.html.twig' %}
+{% block main %}
+    <h1>
+        <a href="{{ path('admin_faleconosco_index') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+        </a>
+        Excluir Mensagem
+    </h1>
+    <hr>
+    <h3>ID: {{ mensagem.id }}</h3>
+    <h3>Nome: {{ mensagem.nome }}</h3>
+    <h3>Telefone: {{ mensagem.telefone }}</h3>
+    <h3>Email: {{ mensagem.email }}</h3>
+    <h3>Texto: {{ mensagem.texto }}</h3>
+    <hr>
+    <h2>Deseja excluir a mensagem?</h2>
+    <form action="{{ path('admin_faleconosco_excluir', {'id': mensagem.id}) }}" method="post">
+        <input type="submit" value="Sim" name="del" class="btn btn-danger">
+        <input type="submit" value="Não" name="del" class="btn btn-default">
+    </form>
+{% endblock %}

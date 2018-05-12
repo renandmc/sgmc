@@ -1,0 +1,30 @@
+{% extends 'admin/index.html.twig' %}
+{% block main %}
+    <h1>Mensagens</h1>
+    <hr>
+    {% if mensagens|length > 0 %}
+        <table class="table table-responsive">
+            <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Texto</th>
+                <th>Opções</th>
+            </tr>
+            {% for mensagem in mensagens %}
+                <tr>
+                    <td>{{ mensagem.nome }}</td>
+                    <td>{{ mensagem.telefone }}</td>
+                    <td>{{ mensagem.email }}</td>
+                    <td>{{ mensagem.texto }}</td>
+                    <td>
+                        <a href="{#_faleconosco_excluir', { 'id': mensagem.id }) #}" class="btn btn-sm btn-danger">Excluir</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        {{ knp_pagination_render(mensagens) }}
+    {% else %}
+        <h2>Nenhuma sugestão enviada</h2>
+    {% endif %}
+{% endblock %}

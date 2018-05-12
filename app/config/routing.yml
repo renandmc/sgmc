@@ -6,7 +6,7 @@ app:
     type: annotation
 
 app_adm:
-    resource: '@AppBundle/Controller/Admin'
+    resource: '@AppBundle/Controller/Admin/'
     type: annotation
 
 _liip_imagine:
