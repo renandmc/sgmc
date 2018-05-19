@@ -1,6 +1,6 @@
 {% extends 'admin/index.html.twig' %}
 {% block main %}
-    <h1>Mensagens</h1>
+    <h1>Mensagens recebidas</h1>
     <hr>
     {% if mensagens|length > 0 %}
         <table class="table table-responsive">
@@ -18,13 +18,13 @@
                     <td>{{ mensagem.email }}</td>
                     <td>{{ mensagem.texto }}</td>
                     <td>
-                        <a href="{{ path('admin_faleconosco_excluir', { 'id': mensagem.id }) }}" class="btn btn-sm btn-danger">Excluir</a>
+                        <a href="{{ path('admin_contato_excluir', { 'id': mensagem.id }) }}" class="btn btn-sm btn-danger">Excluir</a>
                     </td>
                 </tr>
             {% endfor %}
         </table>
         {{ knp_pagination_render(mensagens) }}
     {% else %}
-        <h2>Nenhuma sugestão enviada</h2>
+        <h2>Nenhuma mensagem recebida</h2>
     {% endif %}
 {% endblock %}

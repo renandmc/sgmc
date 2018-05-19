@@ -1,2 +1,4 @@
 # SGMC
-Sistema Gerenciador de Manutenção de Computadores
+## Sistema Gerenciador de Manutenção de Computadores
+### Instalação do projeto
+

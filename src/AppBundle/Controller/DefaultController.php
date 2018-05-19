@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\FaleConosco;
-use AppBundle\Form\FaleConoscoType;
+use AppBundle\Entity\Contato;
+use AppBundle\Form\ContatoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class DefaultController extends Controller
 {
+
     /**
      * Action indexAction
      * @return Response
@@ -37,21 +38,21 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/fale_conosco", name="fale_conosco")
+     * @Route("/contato", name="contato")
      */
-
-    public function FaleConoscoAction(Request $request)
+    public function contatoAction(Request $request)
     {
-        $faleconosco = new FaleConosco();
-        $form = $this->createForm(FaleConoscoType::class, $faleconosco);
+        $contato = new Contato();
+        $form = $this->createForm(ContatoType::class, $contato);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($faleconosco);
+            $em->persist($contato);
             $em->flush();
             $this->addFlash('success',"Mensagem enviada");
             return $this->redirectToRoute('sobre');
         }
-        return $this->render('default/fale_conosco.html.twig', array('faleconosco' => $faleconosco, 'form' => $form->createView()));
+        return $this->render('default/contato.html.twig', array('contato' => $contato, 'form' => $form->createView()));
     }
+
 }

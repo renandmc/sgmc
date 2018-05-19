@@ -7,13 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class FaleConosco
+ * Class Contato
  * @package AppBundle\Entity
  *
  * @ORM\Entity()
- * @ORM\Table(name="fale_conosco")
+ * @ORM\Table(name="mensagens_contato")
  */
-class FaleConosco
+class Contato
 {
 
     /**
@@ -61,7 +61,7 @@ class FaleConosco
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getNome()
     {
@@ -69,8 +69,8 @@ class FaleConosco
     }
 
     /**
-     * @param mixed $nome
-     * @return FaleConosco
+     * @param string $nome
+     * @return Contato
      */
     public function setNome($nome)
     {
@@ -79,7 +79,7 @@ class FaleConosco
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTelefone()
     {
@@ -87,8 +87,8 @@ class FaleConosco
     }
 
     /**
-     * @param mixed $telefone
-     * @return FaleConosco
+     * @param string $telefone
+     * @return Contato
      */
     public function setTelefone($telefone)
     {
@@ -97,7 +97,7 @@ class FaleConosco
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getEmail()
     {
@@ -105,8 +105,8 @@ class FaleConosco
     }
 
     /**
-     * @param mixed $email
-     * @return FaleConosco
+     * @param string $email
+     * @return Contato
      */
     public function setEmail($email)
     {
@@ -115,7 +115,7 @@ class FaleConosco
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTexto()
     {
@@ -123,14 +123,13 @@ class FaleConosco
     }
 
     /**
-     * @param mixed $texto
-     * @return FaleConosco
+     * @param string $texto
+     * @return Contato
      */
     public function setTexto($texto)
     {
         $this->texto = $texto;
         return $this;
     }
-
 
 }

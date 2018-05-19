@@ -6,14 +6,12 @@
     {% if usuarios|length > 0 %}
         <table class="table table-responsive">
             <tr>
-                <th>ID</th>
                 <th>Usuário</th>
                 <th>Nível permissão</th>
                 <th>Opções</th>
             </tr>
             {% for usuario in usuarios %}
                 <tr>
-                    <td>{{ usuario.id }}</td>
                     <td>{{ usuario.usuario}}</td>
                     <td>{{ usuario.tipo }}</td>
                     <td>

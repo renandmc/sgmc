@@ -15,7 +15,9 @@
             </tr>
             {% for ordem in ordens %}
                 <tr>
-                    <td>{{ ordem.criadoPor }}</td>
+                    <td>
+                        <a href="{{ path('admin_usuarios_info', { 'id': ordem.criadoPor.id }) }}">{{ ordem.criadoPor }}</a>
+                    </td>
                     <td>{{ ordem.equipamento.setor }}</td>
                     <td>{{ ordem.equipamento }}</td>
                     <td>{{ ordem.descricaoDefeito }}</td>

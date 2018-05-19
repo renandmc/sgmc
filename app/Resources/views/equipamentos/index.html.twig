@@ -6,7 +6,6 @@
     {% if equipamentos|length > 0 %}
         <table class="table table-responsive">
             <tr>
-                <th>ID</th>
                 <th>Setor</th>
                 <th>Nome</th>
                 <th>Equipamento</th>
@@ -16,7 +15,6 @@
             </tr>
             {% for equipamento in equipamentos %}
                 <tr>
-                    <td>{{ equipamento.id }}</td>
                     <td>{{ equipamento.setor }}</td>
                     <td>{{ equipamento.nome }}</td>
                     <td>{{ equipamento }}</td>

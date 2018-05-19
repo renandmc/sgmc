@@ -32,6 +32,7 @@
                             <ul class="nav navbar-nav">
                                 <li><a href="{{ path('home') }}"><span class="glyphicon glyphicon-home"></span> Página inicial</a></li>
                                 <li><a href="{{ path('sobre') }}"><span class="glyphicon glyphicon-info-sign"></span> Sobre</a></li>
+                                <li><a href="{{ path('contato') }}"><span class="glyphicon glyphicon-comment"></span> Contato</a></li>
                                 {% if app.user %}
                                     <li><a href="{{ path('admin_home') }}"><span class="glyphicon glyphicon-lock"></span> Admin</a></li>
                                 {% endif %}
@@ -49,13 +50,13 @@
                 </nav>
             {% endblock %}
             <div class="{% block containerclass %}container{% endblock %}">
+                {{ include('_flash_messages.html.twig') }}
                 {% block content %}
                     <div class="row">
                         <div id="sidebar" class="col-sm-3 col-md-2">
                             {% block sidebar %}{% endblock %}
                         </div>
                         <div id="main" class="col-sm-9 col-md-10">
-                            {{ include('_flash_messages.html.twig') }}
                             {% block main %}{% endblock %}
                         </div>
                     </div>
