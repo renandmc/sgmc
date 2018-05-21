@@ -19,7 +19,7 @@
             {% block header %}
                 <nav class="navbar navbar-inverse navbar-fixed-top">
                     <div class="container">
-                        <a href="{{ path('home') }}" class="navbar-brand"><img src="{{ asset('img/logo.png') }}"></a>
+                        <a href="{{ path('home') }}" class="navbar-brand" title="Página inicial"><img src="{{ asset('img/logo.png') }}" alt="Logo página inicial"></a>
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
                                 <span class="sr-only">Abrir menu</span>
@@ -30,16 +30,15 @@
                         </div>
                         <div class="collapse navbar-collapse" id="navbar">
                             <ul class="nav navbar-nav">
-                                <li><a href="{{ path('home') }}"><span class="glyphicon glyphicon-home"></span> Página inicial</a></li>
                                 <li><a href="{{ path('sobre') }}"><span class="glyphicon glyphicon-info-sign"></span> Sobre</a></li>
                                 <li><a href="{{ path('contato') }}"><span class="glyphicon glyphicon-comment"></span> Contato</a></li>
                                 {% if app.user %}
-                                    <li><a href="{{ path('admin_home') }}"><span class="glyphicon glyphicon-lock"></span> Admin</a></li>
+                                    <li><a href="{{ path('admin_home') }}" title="Ferramentas administrativas"><span class="glyphicon glyphicon-lock"></span> Admin</a></li>
                                 {% endif %}
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 {% if app.user %}
-                                    <li><a href="{{ path('admin_usuarios_info', { 'id' : app.user.id }) }}"><span class="glyphicon glyphicon-user"></span> {{ app.user.usuario }}</a></li>
+                                    <li><a href="{{ path('admin_usuarios_info', { 'id' : app.user.id }) }}" title="Informações do usuário"><span class="glyphicon glyphicon-user"></span> {{ app.user.usuario }}</a></li>
                                     <li><a href="{{ path('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
                                 {% else %}
                                     <li><a href="{{ path('login') }}"><span class="glyphicon glyphicon-log-in"></span> Entrar</a></li>
@@ -71,7 +70,7 @@
                                 <p>César / Lucas / Renan / Vinícius</p>
                             </div>
                             <div class="col-xs-2">
-                                <a href="http://www.cps.sp.gov.br/" class="pull-right" target="_blank">
+                                <a href="http://www.cps.sp.gov.br/" class="pull-right" target="_blank" title="Site Centro Paula Souza">
                                     <img src="{{ asset('img/cps.png') }}" class="logo-cps">
                                 </a>
                             </div>
