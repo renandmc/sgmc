@@ -21,6 +21,7 @@
                 </tr>
             {% endfor %}
         </table>
+        {{ knp_pagination_render(usuarios) }}
     {% else %}
         <h2>Nenhum usuário cadastrado</h2>
     {% endif %}

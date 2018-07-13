@@ -22,6 +22,7 @@
                 </tr>
             {% endfor %}
         </table>
+        {{ knp_pagination_render(setores) }}
     {% else %}
         <h2>Nenhum setor cadastrado</h2>
     {% endif %}

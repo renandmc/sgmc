@@ -29,7 +29,7 @@ class EquipamentoController extends Controller
     {
         $equipamentos = $this->getDoctrine()->getRepository('AppBundle:Equipamento')->findAll();
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($equipamentos,$request->query->get('pag',1),5);
+        $pagination = $paginator->paginate($equipamentos,$request->query->get('pag',1),3);
         return $this->render('equipamentos/index.html.twig', array('equipamentos' => $pagination));
     }
 

@@ -33,6 +33,7 @@
                 </tr>
             {% endfor %}
         </table>
+        {{ knp_pagination_render(ordens) }}
     {% else %}
         <h2>Nenhuma ordem cadastrada</h2>
     {% endif %}

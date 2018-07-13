@@ -28,6 +28,7 @@
                 </tr>
             {% endfor %}
         </table>
+        {{ knp_pagination_render(equipamentos) }}
     {% else %}
         <h2>Nenhum equipamento cadastrado</h2>
     {% endif %}

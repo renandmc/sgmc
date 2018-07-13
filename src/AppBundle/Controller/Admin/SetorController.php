@@ -29,7 +29,7 @@ class SetorController extends Controller
     {
         $setores = $this->getDoctrine()->getRepository('AppBundle:Setor')->findAll();
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($setores, $request->query->get('pag',1),5);
+        $pagination = $paginator->paginate($setores, $request->query->get('pag',1),3);
         return $this->render('setores/index.html.twig', array('setores' => $pagination));
     }
 

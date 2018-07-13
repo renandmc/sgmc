@@ -24,6 +24,7 @@
                 </tr>
             {% endfor %}
         </table>
+        {{ knp_pagination_render(turmas) }}
     {% else %}
         <h2>Nenhuma turma cadastrada</h2>
     {% endif %}
